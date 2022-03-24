@@ -1,38 +1,81 @@
-.App {
-  text-align: center;
+.background{
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.home-ground{
+  position: absolute;
+  left: -130px;
+  height: 100vh;
+  width: 180vw;
+  z-index: 9;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.home-container{
+  width: 100%;
+  min-width: 1005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.logo{
+  margin-top: 200px;
+  width: 60%;
+}
+
+.user-img{
+  width: 30%;
+  margin-top: 3.5rem;
+  margin-bottom: 2rem;
+  z-index: 99;
+
+}
+
+.home-buttons{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.btn-principal, .btn-secondary{
+  border: none;
+  border-radius: .7rem;
+  min-width: 75%;
+  display: block;
+  height: 35px;
+  z-index: 99;
+  color: #333;
+}
+
+.btn-principal{
+  background-color: #FDBD00;
+}
+
+.btn-secondary{
+  background: #DCDCDC;
+}
+
+.home-container form{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.home-container form input{
+  width: 70%;
+  border: 2px solid #DCDCDC;
+  border-radius: .5rem;
+  padding: 0 .5rem;
+  height: 35px;
+  z-index: 99;
 }
