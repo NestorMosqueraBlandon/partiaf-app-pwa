@@ -15,7 +15,7 @@
 
 .home-container{
   width: 100%;
-  min-width: 1005;
+  min-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@
 
 .logo{
   margin-top: 200px;
-  width: 60%;
+  width: 40%;
 }
 
 .user-img{
@@ -53,11 +53,22 @@
   color: #333;
 }
 
-.btn-principal{
+
+.btn-principal-link, .btn-secondary-link{
+  border: none;
+  border-radius: .7rem;
+  min-width: 75%;
+  display: block;
+  /* height: 35px; */
+  z-index: 99;
+  color: #333;
+}
+
+.btn-principal, .btn-principal-link{
   background-color: #FDBD00;
 }
 
-.btn-secondary{
+.btn-secondary, .btn-secondary-link{
   background: #DCDCDC;
 }
 
@@ -78,4 +89,123 @@
   padding: 0 .5rem;
   height: 35px;
   z-index: 99;
+}
+
+
+
+/* SIGNUP */
+
+.signup-screen .logo{
+  margin-top: 30px;
+  margin-bottom: 35px;
+}
+
+
+
+.checks{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checks label{
+  font-size: 1.2rem;
+  min-width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px;
+  overflow: hidden;
+}
+/* 
+.checks input[type="checkbox" i] {
+  background-color: #333 !important;
+} */
+
+
+.checks input:checked {
+  background: #2AC176;
+ }
+
+
+.left-label{
+  width: 75%;
+  text-align: left;
+  font-size: 1.4rem;
+  margin: 5px 0;
+}
+/* HEADER */
+
+.header{
+  background-color: #FDBD00;
+  max-width: 80%;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.header img{
+  max-width: 40%;
+}
+
+.header button{
+  border: none;
+  background: none;
+  font-size: 2rem;
+}
+
+.sub-header{
+  max-width: 84%;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-header button{
+  border: none;
+  padding: .5rem;
+  border-radius: .5rem;
+  background-color: #333;
+  color: #DCDCDC;
+}
+
+.card-home{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, .07);
+  max-width: 84%;
+  margin: 0 auto;
+  border-radius: 1rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.card-home img{
+  max-width: 100px;
+  
+}
+
+.card-home > div{
+  display: flex;
+  flex-direction: column;
+}
+
+.card-home > div h2{
+  font-size: 1.8rem;
+}
+
+.card-home > div h4{
+  font-size: 1.2rem;
+}
+
+
+.card-home > div p{
+  font-size: 1.2rem;
 }

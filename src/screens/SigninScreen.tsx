@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-export default function SigninScreen() {
+export interface ISigninScreenProps {};
+
+export const SigninScreen: React.FunctionComponent<ISigninScreenProps> = (props) => {
   return (
     <div className='background'>
       <img className='home-ground' src="./img/ground-partiaf.svg" alt="" />
@@ -12,7 +15,7 @@ export default function SigninScreen() {
           <input type="text" placeholder='Contrasena' />
         </form>
         <div className="home-buttons">
-          <button className='btn-principal'>ENTRAR</button>
+          <Link to="/homepage" className='btn-principal-link'>ENTRAR</Link>
         </div>
       </div>
     </div>

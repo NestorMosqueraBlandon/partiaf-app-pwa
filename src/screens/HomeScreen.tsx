@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-export default function HomeScreen() {
+export interface IHomeScreenProps {};
+
+export const HomeScreen: React.FunctionComponent<IHomeScreenProps> = (props) => {
   return (
     <div className='background'>
       <img className='home-ground' src="./img/ground-partiaf.svg" alt="" />
@@ -9,10 +12,11 @@ export default function HomeScreen() {
         <img className='user-img' src="./img/user-avatar-filled.svg" alt="" />
 
         <div className="home-buttons">
-          <button className='btn-principal'>Iniciar sesion</button>
-          <button className='btn-secondary'>Crear usuario</button>
+          <Link to='/login' className='btn-principal-link'>Iniciar sesion</Link>
+          <Link to='/register' className='btn-secondary-link'>Crear usuario</Link>
         </div>
       </div>
     </div>
   )
 }
+
