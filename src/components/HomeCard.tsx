@@ -1,16 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export interface IHomeCardProps {};
+interface CardData {
+  
+}
 
-export const HomeCard: React.FunctionComponent<IHomeCardProps> = (props) => {
+type TState = {stores: TStore[]; greeeting: string}
+type TStoresProps = {users: TStore[] | undefined}
+type TStore = {
+  name: string,
+  address: string,
+  type: string
+}
+
+
+
+export interface IHomeCardProps {
+  name: string,
+  address: string,
+  type: string,
+};
+
+export const HomeCard: React.FunctionComponent<IHomeCardProps> = (store: TStore, key: number) => {
+  
+  const {name, address, type} = store
+
   return (
     <div className='card-home'>
       <img src="./img/icon-es.png" alt="Establecimiento" />
       <div>
-        <h2>Bar la 70</h2>
-        <h4>Medellin</h4>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim reiciendis repudiandae.</p>
+        <h2>{name}</h2>
+        <h4>{type}</h4>
+        <p>{address}</p>
       </div>
     </div>
   )

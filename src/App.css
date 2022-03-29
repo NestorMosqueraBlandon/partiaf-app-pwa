@@ -139,7 +139,7 @@
 
 .header{
   background-color: #FDBD00;
-  max-width: 80%;
+  max-width: 90%;
   margin: 2rem auto;
   padding: 1rem;
   border-radius: 1rem;
@@ -160,7 +160,7 @@
 }
 
 .sub-header{
-  max-width: 84%;
+  max-width: 94%;
   margin: 1rem auto;
   display: flex;
   align-items: center;
@@ -178,9 +178,9 @@
 .card-home{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: rgba(0, 0, 0, .07);
-  max-width: 84%;
+  max-width: 94%;
   margin: 0 auto;
   border-radius: 1rem;
   margin-top: 2rem;
@@ -208,4 +208,8 @@
 
 .card-home > div p{
   font-size: 1.2rem;
+}
+
+.data-container{
+  overflow: scroll;
 }
