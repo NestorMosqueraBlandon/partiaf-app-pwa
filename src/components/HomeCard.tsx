@@ -8,20 +8,20 @@ interface CardData {
 type TState = {stores: TStore[]; greeeting: string}
 type TStoresProps = {users: TStore[] | undefined}
 type TStore = {
-  name: string,
-  address: string,
-  type: string
+  name?: string,
+  address?: string,
+  type?: string
 }
 
 
 
 export interface IHomeCardProps {
-  name: string,
-  address: string,
-  type: string,
+  name?: string,
+  address?: string,
+  type?: string,
 };
 
-export const HomeCard: React.FunctionComponent<IHomeCardProps> = (store: TStore, key: number) => {
+export const HomeCard: React.FunctionComponent<IHomeCardProps | undefined> = (store: TStore, key: number) => {
   
   const {name, address, type} = store
 

@@ -5,68 +5,24 @@ import { Header } from '../components/header/Header'
 import { HomeCard } from '../components/HomeCard'
 import { storeListReducer } from '../reducers/storeReducers';
 
-interface StoresResults {
-  results: Result;
-  info:    Info;
-}
-
-interface Info {
-  seed:    string;
-  results: number;
-  page:    number;
-  version: string;
-}
-
-interface Result {
-  name: string;
-  type: string;
-  nit: number;
-  password: string;
-  mobile: number;
-  employes:       number;
-  address: string;
-  totalLimit:      string;
-}
-
-
 export interface IStoreScreenProps {};
 
-const getData = async (endpoint: string) => {
-  const response = await fetch(endpoint);
-  const data: StoresResults = await response.json();
-  return data
+interface IData {
+  name?: string;
+  address?: string;
+  type?: string;
 }
-
-type TState = {stores: TStore[]; greeeting: string}
-type TStoresProps = {users: TStore[] | undefined}
-type TStore = {
-  name: string,
-  address: string,
-  type: string
-}
-
-
 export const StoreScreen: React.FunctionComponent<IStoreScreenProps> = (props) => {
   
-  const [state, setState] = useState({
-    stores: [],
-    greeting: "Feching data"
-  });
+  const [data, setData] = useState<IData[] | undefined>();
 
-  const [data, setData] = useState([]);
+  const [openCategories, setOpenCategories] = useState(false);
+  const [category, setCategory] = useState("");
 
-  const fechStores = async () => {
-    const storesData = await getData('https://partiaf-api.herokuapp.com/api/v1/stores/listall')
-    const stores = storesData
-    return setState({...state, ...stores})
+  const setCategoryElements = (name: string) => {
+    setCategory(name)
+    setOpenCategories(false);
   }
-
-
-  const {greeting, stores} = state;
-
-  console.log(stores.length)
-
-
   function apiFetch<T>(url: string): Promise<T> {
     return fetch(url)
     .then(response => {
@@ -77,34 +33,36 @@ export const StoreScreen: React.FunctionComponent<IStoreScreenProps> = (props) =
     })
   } 
 
-  const hasStores = data.length > 0
+  let hasStores = false
+  if(data){
+    hasStores = data.length > 0 
+  }
 
 
   useEffect(() => {
-    apiFetch<any>('https://partiaf-api.herokuapp.com/api/v1/stores/listall')
+    apiFetch<IData[]>('https://partiaf-api.herokuapp.com/api/v1/stores/listall')
     .then((response) => {
       setData(response)
       console.log(data)
     })
-    fechStores()
-  },[stores, hasStores])
+  },[hasStores])
 
-
-
-  console.log(hasStores)
+  console.log(openCategories)
 
   return (
+    <>
     <div className='background data-container'>
       <Header />
       <div className="sub-header">
         <button><i className='bx bx-filter' ></i> Filtrar</button>
-        <button> Cambiar categoria</button>
+        <button onClick={() => setOpenCategories(true)}> Cambiar categoria</button>
       </div>
       <div className="data-container">
 
       {hasStores? (
       <>
-      {data.map(({name,address,type}) => (
+      {data?.filter(({type}) => type?.includes(category))
+      .map(({name,address,type}) => (
         <HomeCard name={name} address={address} type={type} />
       ))}
       </>
@@ -113,9 +71,23 @@ export const StoreScreen: React.FunctionComponent<IStoreScreenProps> = (props) =
       <h2>Cargando</h2>
       }
       </div>
-
-
     </div>
+
+    <div className={openCategories? "categories active" : "categories"}>
+      <div className="category__header">
+      <p>Selecciona una categoria</p>
+        <button onClick={() => setOpenCategories(false)}>Cerrar</button>
+      </div>
+
+      <ul>
+      <li><button onClick={()   => setCategoryElements('')} >Todo</button></li>
+        <li><button onClick={() => setCategoryElements('Bar')} >Bares</button></li>
+        <li><button onClick={() => setCategoryElements('Discoteca')} >Discotecas</button></li>
+        <li><button onClick={() => setCategoryElements('Gastrobar')} >Gastrobares</button></li>
+      </ul>
+    </div>
+    </>
+
   )
 }
 

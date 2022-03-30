@@ -5,6 +5,7 @@ import { SigninScreen } from "./screens/SigninScreen";
 import './App.css';
 import { SignupScreen } from "./screens/SignupScreen";
 import { StoreScreen } from "./screens/StoresScreen";
+import { BussinessScreen } from "./screens/BussinessScreen";
 
 export interface IApplicationProps { }
 
@@ -21,6 +22,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                 <Route path="/register" element={<SignupScreen />} />
 
                 <Route path="/homepage" element={<StoreScreen />} />
+                <Route path="/bussines" element={<BussinessScreen />} />
             </Routes>
         </BrowserRouter>)
 }
