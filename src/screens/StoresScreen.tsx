@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom'
 import { reduceEachTrailingCommentRange } from 'typescript';
 import { Header } from '../components/header/Header'
 import { HomeCard } from '../components/HomeCard'
-import { storeListReducer } from '../reducers/storeReducers';
 
 export interface IStoreScreenProps {};
 
 interface IData {
+  _id: string;
   name?: string;
   address?: string;
   type?: string;
+  images: string[];
 }
-export const StoreScreen: React.FunctionComponent<IStoreScreenProps> = (props) => {
+export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) => {
   
   const [data, setData] = useState<IData[] | undefined>();
 
@@ -43,11 +44,10 @@ export const StoreScreen: React.FunctionComponent<IStoreScreenProps> = (props) =
     apiFetch<IData[]>('https://partiaf-api.herokuapp.com/api/v1/stores/listall')
     .then((response) => {
       setData(response)
-      console.log(data)
     })
   },[hasStores])
 
-  console.log(openCategories)
+  console.log(data)
 
   return (
     <>
@@ -62,8 +62,8 @@ export const StoreScreen: React.FunctionComponent<IStoreScreenProps> = (props) =
       {hasStores? (
       <>
       {data?.filter(({type}) => type?.includes(category))
-      .map(({name,address,type}) => (
-        <HomeCard name={name} address={address} type={type} />
+      .map(({_id, images, name,address,type}, index) => (
+        <HomeCard key={index} id={_id} name={name} images={images} address={address} type={type} />
       ))}
       </>
       )

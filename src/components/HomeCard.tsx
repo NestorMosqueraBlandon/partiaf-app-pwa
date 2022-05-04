@@ -8,32 +8,37 @@ interface CardData {
 type TState = {stores: TStore[]; greeeting: string}
 type TStoresProps = {users: TStore[] | undefined}
 type TStore = {
+  id: string;
   name?: string,
   address?: string,
-  type?: string
+  type?: string,
+  images?: string[]
 }
 
 
 
 export interface IHomeCardProps {
+  id: string;
   name?: string,
   address?: string,
   type?: string,
+  images?: string[];
 };
 
 export const HomeCard: React.FunctionComponent<IHomeCardProps | undefined> = (store: TStore, key: number) => {
   
-  const {name, address, type} = store
+  const {id,name, address, type, images} = store
 
   return (
-    <div className='card-home'>
-      <img src="./img/icon-es.png" alt="Establecimiento" />
+    <Link to={`/store/${id}`} className='card-home'>
+      <img src={images && images[0]? images[0] : "/img/icon-es.png"} alt="Establecimiento" />
       <div>
         <h2>{name}</h2>
         <h4>{type}</h4>
         <p>{address}</p>
       </div>
-    </div>
+      <button><i className='bx bx-heart'></i></button>
+    </Link>
   )
 }
 

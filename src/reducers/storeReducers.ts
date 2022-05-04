@@ -1,3 +1,6 @@
+import constantsTemplate from "../constants/constantsTemplate"
+import reducerTemplate from "./reducersTemplate";
+
 type Action = {
     type: string,
     payload?: any
@@ -15,3 +18,9 @@ export const storeListReducer = (state = {stores: []}, action: Action) => {
             return state;
     }
 }
+
+
+const storeConstants = new constantsTemplate("STORES");
+const storeReducer = new reducerTemplate({constants: storeConstants});
+
+export default storeReducer;

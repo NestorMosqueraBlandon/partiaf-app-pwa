@@ -27,3 +27,8 @@ a{
   text-align: center;
   padding: .7rem 0;
 }
+
+a.card-home{
+  padding: 0;text-align: left;
+  color: #212121;
+}

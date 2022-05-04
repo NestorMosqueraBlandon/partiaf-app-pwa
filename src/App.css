@@ -140,13 +140,18 @@
 .header{
   background-color: #FDBD00;
   max-width: 90%;
+  width: 100%;
   margin: 2rem auto;
+  left: calc(50%) ;
+  transform: translate(-50%, 0%);
   padding: 1rem;
   border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
+  position: fixed;
+  z-index: 9999;
 }
 
 .header img{
@@ -177,24 +182,29 @@
 
 .card-home{
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   background-color: rgba(0, 0, 0, .07);
   max-width: 94%;
   margin: 0 auto;
   border-radius: 1rem;
   margin-top: 2rem;
-  padding: 1rem 0;
+  gap: 1rem;
+  height: 8rem;
+  overflow: hidden;
 }
 
 .card-home img{
-  max-width: 100px;
+  width: 100px;
+  height: 100%;
+  object-fit: cover;
   
 }
 
 .card-home > div{
   display: flex;
   flex-direction: column;
+  padding-top: 1rem;
 }
 
 .card-home > div h2{
@@ -263,4 +273,108 @@
 
 .category__header p{
   margin-left: 1.5rem;
+}
+
+.card-home{position: relative;}
+
+.card-home button{
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border: none;
+  font-size: 1.8rem;
+  background-color: transparent;
+
+}
+
+.store-container{
+  overflow: hidden;
+}
+
+.store-container .store-image{
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  object-fit: cover;
+  
+}
+
+.store-info{
+  position: absolute;
+  bottom: 0;
+  height: 50%;
+  background-color: #FFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+  border-radius: 3rem;
+  width: 100%;
+  z-index: 99;
+  border-top: 1px solid rgba(0, 0, 0, .3);
+}
+
+.store-info-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.store-image{
+  z-index: 9999999;
+}
+
+.store-info-header h2{
+  color: #333;
+}
+
+.store-info-header button{
+  background-color: transparent;
+  border: none;
+  font-size: 2.5rem;
+}
+
+.store-info ul{
+  list-style: none;
+}
+
+.menu-item img{
+  position: relative;
+  
+}
+
+.store-info details{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(0,0,0, .5);
+  border-radius: 1.5rem;
+}
+
+details summary{
+  color: #333;
+  font-weight: 500;
+}
+
+details .menu-item > div{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  background-color: #FDBD00;
+  padding: 1rem;
+  font-weight: 500;
+  color: #333;
+
+}
+
+details h3{
+  margin-top: 2rem;
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+details img{
+  width: 100%;
 }

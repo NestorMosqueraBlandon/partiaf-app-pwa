@@ -4,25 +4,39 @@ import { HomeScreen } from "./screens/HomeScreen";
 import { SigninScreen } from "./screens/SigninScreen";
 import './App.css';
 import { SignupScreen } from "./screens/SignupScreen";
-import { StoreScreen } from "./screens/StoresScreen";
+import { StoresScreen } from "./screens/StoresScreen";
 import { BussinessScreen } from "./screens/BussinessScreen";
+import { useSelector } from "react-redux";
+import { StoreScreen } from "./screens/StoreScreen";
 
 export interface IApplicationProps { }
 
 const Application: React.FunctionComponent<IApplicationProps> = (props) => {
 
-    const [login, setLogin] = useState(false);
+    const userSignin = useSelector((state: any) => state.userSignin);
+    const { userInfo } = userSignin;
 
     return (
         <BrowserRouter>
 
             <Routes>
-                <Route path="/" element={<HomeScreen />} />
-                <Route path="/login" element={<SigninScreen />} />
-                <Route path="/register" element={<SignupScreen />} />
+                {userInfo ? (
+                    <>
+                        <Route path="/homepage" element={<StoresScreen />} />
+                        <Route path="/bussines" element={<BussinessScreen />} />
+                        <Route path="/store/:id" element={<StoreScreen/>} />
+                    </>
 
-                <Route path="/homepage" element={<StoreScreen />} />
-                <Route path="/bussines" element={<BussinessScreen />} />
+                ) : (
+                    <>
+                        <Route path="/" element={<HomeScreen />} />
+                        <Route path="/login" element={<SigninScreen />} />
+                        <Route path="/register" element={<SignupScreen />} />
+                    </>
+
+                )}
+
+
             </Routes>
         </BrowserRouter>)
 }
