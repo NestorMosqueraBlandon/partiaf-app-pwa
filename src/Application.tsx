@@ -24,7 +24,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                     <>
                         <Route path="/homepage" element={<StoresScreen />} />
                         <Route path="/bussines" element={<BussinessScreen />} />
-                        <Route path="/store/:id" element={<StoreScreen/>} />
+                        <Route path="/store/:id" element={<StoreScreen/>}  />
                     </>
 
                 ) : (

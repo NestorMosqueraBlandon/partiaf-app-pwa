@@ -55,7 +55,7 @@ export default class actionsTemplate{
 
         this.api = api;
 
-        this.URL = "https://partiaf-api.herokuapp.com/api/v1";
+        this.URL = "https://partiaf-api-v2.herokuapp.com/api/v1";
         // this.URL = "http://localhost:4300/api/v1";
     }
 
@@ -70,6 +70,7 @@ export default class actionsTemplate{
     }
 
     one = (id: string | undefined) => async(dispatch: any) => {
+        console.log(id)
         dispatch({type: this.DETAILS_REQUEST, payload: id});
         try{
             const {data} = await Axios.get(`${this.URL}/${this.api}/${id}`);

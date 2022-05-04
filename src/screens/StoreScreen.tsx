@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router'
-import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import storeActions from '../actions/storeActions'
 import { Header } from '../components/header/Header'
 export const StoreScreen: React.FunctionComponent = (props: any) => {
@@ -9,7 +8,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const storeOne = useSelector((state: any) => state.storeOne);
     const { loading, error, data: store } = storeOne;
 
-    const { id } = useParams();
+    const {id} = useParams();
+
 
     const dispatch = useDispatch();
 
@@ -18,7 +18,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     }, [dispatch])
 
     if(!loading){
-        console.log(store[0]?.chairs)
+        console.log(error)
+        // console.log(store[0]?.chairs)
     }
     return (
         <div>
