@@ -3,7 +3,7 @@ import { Console } from "console";
 import { USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_SIGNUP_FAIL, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS } from "../constants/userConstants"
 
 // const URL = 'http://localhost:4300/api/v1'
-const URL = 'https://partiaf-api.herokuapp.com/api/v1'
+const URL = 'https://partiaf-api-v2.herokuapp.com/api/v1'
 
 
 export const signin = (username: string, password: string) => async(dispatch: any) => {
