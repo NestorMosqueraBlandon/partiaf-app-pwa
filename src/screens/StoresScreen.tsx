@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { reduceEachTrailingCommentRange } from 'typescript';
+import BottonMenu from '../components/BottonMenu';
 import { Header } from '../components/header/Header'
 import { HomeCard } from '../components/HomeCard'
 
@@ -86,6 +87,7 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
         <li><button onClick={() => setCategoryElements('Gastrobar')} >Gastrobares</button></li>
       </ul>
     </div>
+    <BottonMenu />
     </>
 
   )

@@ -24,7 +24,7 @@ export const SigninScreen: React.FunctionComponent<ISigninScreenProps> = (props)
 
   useEffect(() => {
     if(userInfo){
-        navigate('/homepage'); 
+        navigate('/'); 
     }
   }, [userInfo])
   

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import storeActions from '../actions/storeActions'
+import BottonMenu from '../components/BottonMenu'
 import { Header } from '../components/header/Header'
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
@@ -39,7 +40,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         </div>
 
                         <details>
-                            <summary>ENTRADAS</summary>
+                            <summary><span><i className='bx bx-no-entry' ></i> ENTRADAS</span>  <i className='bx bx-plus' ></i> </summary>
                             {store[0].covers.map((chair: any) => (
                                     <div key={chair._id} className="menu-item" >
                                         <h3>{chair.type}</h3>
@@ -49,7 +50,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         </details>
 
                         <details>
-                            <summary>RESERVAS</summary>
+                            <summary><span><i className='bx bxs-bookmark' ></i> RESERVAS</span>  <i className='bx bx-plus' ></i> </summary>
                             <div>
                                 {store[0].chairs.map((chair: any) => (
                                     <div key={chair._id} className="menu-item" >
@@ -61,7 +62,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         </details>
 
                         <details>
-                            <summary>MENU</summary>
+                            <summary><span><i className='bx bxs-food-menu' ></i> MENU </span> <i className='bx bx-plus' ></i></summary>
                             <div>
                                 {store[0].menus.map((menu: any) => (
                                     <div key={menu._id} className="menu-item" >
@@ -81,12 +82,20 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 ))}
                             </div>
                         </details>
+                        <div className="contact-new">
+                            <a href={`tel:${store.mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
+                            <a href={`https://api.whatsapp.com/send?phone=${store.mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
+                            <Link to="/"><i className='bx bxs-location-plus'></i> Ubicacion</Link>
+            
+                        </div>
 
                     </div>
                     </div>
                 </>
 
             )}
+
+            <BottonMenu />
         </div>
     )
 }

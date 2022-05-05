@@ -305,10 +305,12 @@
 .store-info{
   position: absolute;
   bottom: 0;
-  height: 50%;
+  height: 60%;
   background-color: #FFF;
   box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
   border-radius: 3rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
   width: 100%;
   z-index: 99;
   border-top: 1px solid rgba(0, 0, 0, .3);
@@ -318,7 +320,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1rem 2.5rem;
 }
 
 .store-image{
@@ -356,6 +358,9 @@
 details summary{
   color: #333;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 details .menu-item > div{
@@ -378,4 +383,56 @@ details h3{
 
 details img{
   width: 100%;
+}
+
+.contact-new{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap:5rem;
+  /* background-color: #333; */
+  position: absolute;
+  bottom: 90px;
+  left: calc(50%);
+  transform: translate(-50%, 50%);
+}
+
+.contact-new a{
+  color:#333;
+  font-size: 1.4rem;
+}
+
+details>summary {
+  list-style: none;
+}
+
+.bottom-menu{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  height: 3rem;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFF;
+  /* border-top: 1px solid rgba(0, 0, 0, .3); */
+  padding: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .8);
+}
+
+.bottom-menu a{
+  width: 100px;
+  /* height: 100%; */
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.botton-user img{
+  width: 30px;
+  object-fit: cover;
+  border-radius: 5rem;
 }

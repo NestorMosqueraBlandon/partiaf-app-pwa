@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { HomeScreen } from "./screens/HomeScreen";
 import { SigninScreen } from "./screens/SigninScreen";
 import './App.css';
@@ -16,13 +16,14 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     const userSignin = useSelector((state: any) => state.userSignin);
     const { userInfo } = userSignin;
 
+    
     return (
         <BrowserRouter>
 
             <Routes>
                 {userInfo ? (
                     <>
-                        <Route path="/homepage" element={<StoresScreen />} />
+                        <Route path="/" element={<StoresScreen />} />
                         <Route path="/bussines" element={<BussinessScreen />} />
                         <Route path="/store/:id" element={<StoreScreen/>}  />
                     </>
