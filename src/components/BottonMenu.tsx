@@ -11,6 +11,7 @@ const BottonMenu = () => {
         <i className='bx bx-search' ></i>
       </Link>
       <Link to="/">
+      <input className='cam' accept="image/*" id="icon-button-file" type="file" capture="environment" />
         <i className='bx bx-camera' ></i>
       </Link>
       <Link to="/">

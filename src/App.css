@@ -436,3 +436,9 @@ details>summary {
   object-fit: cover;
   border-radius: 5rem;
 }
+
+.cam{
+  z-index: 99999;
+  background-color: red;
+  visibility: hidden;
+}
