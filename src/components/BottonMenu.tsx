@@ -17,7 +17,7 @@ const BottonMenu = () => {
       <Link to="/">
         <i className='bx bx-search' ></i>
       </Link>
-      <Link to="/">
+      <Link to="/shared">
         <i className='bx bx-camera' ></i>
       </Link>
       <Link to="/">
