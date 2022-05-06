@@ -51,9 +51,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                         <div className="cover-amount">
                                             <h3>Cantidad</h3>
                                             <div className="cover-buttons">
-                                                <button>+</button>
-                                                <input type="text" value={1} />
                                                 <button>-</button>
+                                                <input type="text" value={1} />
+                                                <button>+</button>
                                             </div>
                                         </div>
                                         <div className="cover-total">
