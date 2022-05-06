@@ -83,8 +83,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                             </div>
                         </details>
                         <div className="contact-new">
-                            <a href={`tel:${store.mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
-                            <a href={`https://api.whatsapp.com/send?phone=${store.mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
+                            <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
+                            <a href={`https://api.whatsapp.com/send?phone=${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
                             <Link to="/"><i className='bx bxs-location-plus'></i> Ubicacion</Link>
             
                         </div>
