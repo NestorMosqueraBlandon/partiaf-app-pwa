@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +23,31 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch(signup({name, lastname, email, username, mobile, password}) as any)
+    dispatch(signup({name, lastname, email, username, mobile, password, image}) as any)
   }
+
+  const uploadHandler = async (e:any, imageField = "image") => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append("file", file);
+    try {
+      dispatch({ type: "UPLOAD_REQUEST" });
+      const { data } = await axios.post(
+        "https://rveapi.herokuapp.com/api/v1/users/upload",
+        bodyFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      dispatch({ type: "UPLOAD_SUCCESS" });
+      setImage(data.secure_url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   const navigate = useNavigate();
 
@@ -44,6 +68,8 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
           <input type="text" placeholder='Correo'   value={email}  onChange={(e) => setEmail      (e.target.value)}  />
           <input type="text" placeholder='Usuario'  value={username}  onChange={(e) => setUsername(e.target.value)}  />
           <input type="text" placeholder='Movil'    value={mobile}  onChange={(e) => setMobile    (e.target.value)}  />
+          <label htmlFor="">Selecciona la imagen de perfil</label>
+          <input type="file" onChange={(e) => uploadHandler(e, "imageFeatured") } />
           <label htmlFor="" className='left-label'>Crea una contrasena</label>
           <input type="password" placeholder='Contrasena' value={password} onChange={(e) => setPassword(e.target.value)} />
           <input type="password" placeholder='Confirmar contrasena' />
@@ -55,15 +81,12 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
               </p>
             </label>
             <label htmlFor="">
-
               <input type="radio" name="gender" id="gender" />
               <p>
-
                 Femenino
               </p>
             </label>
             <label htmlFor="">
-
               <input type="radio" name="gender" id="gender" />
               <p>
                 Otro
@@ -73,20 +96,16 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
           <div className="home-buttons">
             <button className='btn-principal' onClick={(e) => submitHandler(e) }>Siguiente</button>
           </div>
-
           <div className="checks">
-
             <label htmlFor="">
               <input type="checkbox" name="" id="" />
               <p>
                 Acepto los terminos y condiciones
-
               </p>
             </label>
             <label htmlFor="">
               <input type="checkbox" name="" id="" />
               <p>
-
                 Soy mayor de edad
               </p>
             </label>

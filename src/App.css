@@ -432,8 +432,147 @@ details>summary {
 }
 
 .botton-user img{
-  width: 40px;
+  width: 35px;
+  height: 35px;
   object-fit: cover;
   border-radius: 5rem;
+  border: 2px solid #FDBD00;
 }
 
+.profile-info{
+  width: 100%;
+  padding-top: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile-info img{
+  width: 100px;
+  height: 100px;
+  border-radius: 5rem;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.profile-status{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.profile-status p {
+  font-weight: 600;
+}
+
+.profile-status span{
+  font-size: 1.4rem;
+}
+
+.profile-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.profile-buttons button{
+  border: 1px solid rgba(0, 0, 0, .3);
+  background-color: transparent;
+  height: 4rem;
+  width: 130px;
+}
+
+.profile-buttons button:last-child{
+  height: 4rem;
+  width: 4rem;
+  font-size: 2.5rem;
+}
+
+.profile-bio{
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.profile-shared{
+  text-align: center;
+  padding: 3.5rem;
+}
+
+.profile-shared h3{
+  font-weight: 400;
+  font-size: 1.6rem;
+}
+
+.profile-shared p{
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, .5);
+  margin-top: .5rem;
+}
+
+.profile-shared a{
+  color: #FDBD00;
+}
+
+.profile-complete{
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, .03);
+}
+
+.profile-complete h3{
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.profile-complete p{
+  font-size: 1.2rem;
+}
+
+.profile-complete p span{
+  color: #FDBD00;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.complete-content{
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.complete-box{
+  background-color: #fff;
+  padding: 2rem;
+border: 1px solid rgba(0, 0, 0, .05);
+  text-align: center;
+}
+
+.complete-box i{
+  font-size: 2rem;
+}
+
+.complete-box h4 {
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+.complete-box p{
+  color: rgba(0, 0, 0, .5);
+  font-size: 1rem;
+  margin-top: .3rem;
+}
+
+.complete-box button{
+  background-color: #FDBD00;
+  color: #fff;
+  border: none;
+  padding: .5rem 2rem;
+  margin-top: 1rem;
+}

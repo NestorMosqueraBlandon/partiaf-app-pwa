@@ -29,7 +29,7 @@ export const signup = (user: any) => async(dispatch: any) => {
         dispatch({type: USER_SIGNIN_SUCCESS, payload: data});
 
         localStorage.setItem('userInfo', JSON.stringify(data))
-        document.location.href = "/homepage"
+        document.location.href = "/"
     }catch(error){
     dispatch({type: USER_SIGNUP_FAIL, payload: error});
         console.log(error)

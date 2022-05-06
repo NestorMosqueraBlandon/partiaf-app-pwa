@@ -1,7 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 
 const BottonMenu = () => {
+
+  const userSignin = useSelector((state: any) => state.userSignin);
+  const {userInfo} = userSignin;
+
+  console.log(userInfo)
+
   return (
     <div className='bottom-menu'>
       <Link to="/">
@@ -16,8 +23,8 @@ const BottonMenu = () => {
       <Link to="/">
       <i className='bx bx-color' ></i>
       </Link>
-      <Link to="/" className='botton-user'>
-        <img src="/user-p.jpg" alt="" />
+      <Link to="/profile" className='botton-user'>
+        <img src={userInfo.image} alt="" />
       </Link>
       
     </div>

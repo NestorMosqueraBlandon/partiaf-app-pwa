@@ -8,6 +8,7 @@ import { StoresScreen } from "./screens/StoresScreen";
 import { BussinessScreen } from "./screens/BussinessScreen";
 import { useSelector } from "react-redux";
 import { StoreScreen } from "./screens/StoreScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 export interface IApplicationProps { }
 
@@ -26,6 +27,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                         <Route path="/" element={<StoresScreen />} />
                         <Route path="/bussines" element={<BussinessScreen />} />
                         <Route path="/store/:id" element={<StoreScreen/>}  />
+                        <Route path="/profile" element={<ProfileScreen/>}  />
                     </>
 
                 ) : (
