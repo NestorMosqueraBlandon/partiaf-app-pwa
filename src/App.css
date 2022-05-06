@@ -307,7 +307,7 @@
   bottom: 0;
   height: 60%;
   background-color: #FFF;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, .1);
   border-radius: 3rem;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -349,10 +349,14 @@
 .store-info details{
   width: 80%;
   margin: 0 auto;
-  margin-top: 1.5rem;
+  margin-top:1.5rem;
   padding: 1.5rem;
   border: 1px solid rgba(0,0,0, .5);
   border-radius: 1.5rem;
+}
+
+.store-info details:nth-child(4){
+  margin-bottom: 20rem;
 }
 
 details summary{
@@ -367,14 +371,62 @@ details .menu-item > div{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2.5rem;
-  background-color: #FDBD00;
-  padding: 1rem;
-  font-weight: 500;
+  /* margin-bottom: 2.5rem; */
+  /* padding: 1rem; */
+  /* font-weight: 500; */
   color: #333;
-
 }
 
+.cover-header{
+  background-color: #FDBD00;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  height: 3rem;
+  padding: 0 1rem;
+  margin-top: 1rem;
+}
+
+.cover-amount{
+  /* background-color: rgb(113, 113, 113); */
+}
+
+.cover-amount h3{
+  padding-left: 1rem;
+  /* color: #DCDCDC; */
+}
+
+.cover-buttons{
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.cover-buttons input{
+  width: 3rem;
+  height: 2.5rem;
+  border: none;
+  text-align: center;
+}
+
+.cover-buttons button{
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  font-size: 2.5rem;
+}
+
+.cover-total{
+  padding: 0 1rem;
+  height: 2.5rem;
+  background-color: rgb(107, 106, 106);
+}
+
+.cover-total h3{
+  color: #DCDCDC !important;
+}
+.cover-total p{
+  color: #DCDCDC !important;
+}
 details h3{
   margin-top: 2rem;
   font-size: 1.6rem;
@@ -392,10 +444,11 @@ details img{
   width: 100%;
   gap:5rem;
   /* background-color: #333; */
-  position: absolute;
+  position: fixed;
   bottom: 90px;
   left: calc(50%);
   transform: translate(-50%, 50%);
+  
 }
 
 .contact-new a{
@@ -406,6 +459,7 @@ details img{
 details>summary {
   list-style: none;
 }
+
 
 .bottom-menu{
   position: fixed;

@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import storeActions from '../actions/storeActions'
 import BottonMenu from '../components/BottonMenu'
 import { Header } from '../components/header/Header'
+import { DivisaFormater } from '../utils/divisaFormater'
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
@@ -42,9 +43,23 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         <details>
                             <summary><span><i className='bx bx-no-entry' ></i> ENTRADAS</span>  <i className='bx bx-plus' ></i> </summary>
                             {store[0].covers.map((chair: any) => (
-                                    <div key={chair._id} className="menu-item" >
-                                        <h3>{chair.type}</h3>
-                                        <span>{chair.price}</span>
+                                    <div key={chair._id} className="menu-item cover" >
+                                        <div className='cover-header'>
+                                            <h3>{chair.type}</h3>
+                                            <span>{DivisaFormater(chair.price)}</span>
+                                        </div>
+                                        <div className="cover-amount">
+                                            <h3>Cantidad</h3>
+                                            <div className="cover-buttons">
+                                                <button>+</button>
+                                                <input type="text" value={1} />
+                                                <button>-</button>
+                                            </div>
+                                        </div>
+                                        <div className="cover-total">
+                                            <h3>Total</h3>
+                                            <p>{DivisaFormater(chair.price)}</p>
+                                        </div>
                                     </div>
                                 ))}
                         </details>
@@ -72,7 +87,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                             <img src={item.image} alt={item.name} />
                                             <div>
                                             <span>{item.name}</span>
-                                            <span>{item.price}</span>                                            
+                                            <span>{DivisaFormater(item.price)}</span>                                            
                                             </div>
                                         </>
 
