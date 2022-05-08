@@ -57,7 +57,6 @@
 .btn-principal-link, .btn-secondary-link{
   border: none;
   border-radius: .7rem;
-  min-width: 75%;
   display: block;
   /* height: 35px; */
   z-index: 99;
@@ -640,6 +639,43 @@ border: 1px solid rgba(0, 0, 0, .05);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, .05);
+}
+
+.register a{
+  color: #333;
+}
+
+.register input{
+  width: 90%;
+  height: 4rem;
+  border-radius: .5rem;
+  border: none;
+  padding: 0 1rem;
+}
+
+.home-login{
+  background-color: rgba(0, 0, 0, .05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-login p{
+  margin-bottom: 5rem;
+}
+
+.home-login a{
+  height: 3rem;
+  width: 90%;
+  padding-top: 1rem;
 }
 
 .login .input-form{

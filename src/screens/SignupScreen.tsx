@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../actions/userActions';
 
 export interface ISigninScreenProps { };
@@ -59,7 +59,7 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
   }, [userInfo])
   
   return (
-    <div className='background'>
+    <div className='background register'>
       <div className="home-container signup-screen">
         <img className='logo' src="./img/logo/logo-partiaf-secondary.svg" alt="" />
         <form>
@@ -70,7 +70,7 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
           <input type="text" placeholder='Movil'    value={mobile}  onChange={(e) => setMobile    (e.target.value)}  />
           <label htmlFor="">Selecciona la imagen de perfil</label>
           <input type="file" onChange={(e) => uploadHandler(e, "imageFeatured") } />
-          <label htmlFor="" className='left-label'>Crea una contrasena</label>
+          <label htmlFor="" className=''>Crea una contrasena</label>
           <input type="password" placeholder='Contrasena' value={password} onChange={(e) => setPassword(e.target.value)} />
           <input type="password" placeholder='Confirmar contrasena' />
           <div className="checks">
@@ -113,7 +113,7 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
         </form>
       </div>
 
-      <p className='left-label'>Ya tienes una cuenta, deseas <strong>Iniciar sesion?</strong></p>
+      <Link to="/login" className='left-label'>Ya tienes una cuenta, deseas <strong>Iniciar sesion?</strong></Link>
     </div>
   )
 }
