@@ -69,7 +69,7 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
         <button><i className='bx bx-filter' ></i> Filtrar</button>
         <button onClick={() => setOpenCategories(true)}> Cambiar categoria</button>
       </div> */}
-      <div className="data-container">
+      <div className="">
 
       {hasStores? (
       <>

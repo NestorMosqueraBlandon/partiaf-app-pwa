@@ -218,7 +218,7 @@
 
 .data-container{
   overflow: scroll;
-  background-color: rgba(0, 0, 0, .032);
+  background-color: rgba(0, 0, 0, 0.032);
 }
 
 .categories {
@@ -724,7 +724,8 @@ border: 1px solid rgba(0, 0, 0, .05);
   margin-bottom: 0;
   /* background-color: #FFF; */
   width: 100%;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
+  justify-content: center;
 }
 
 .store-categories button{
@@ -732,4 +733,9 @@ border: 1px solid rgba(0, 0, 0, .05);
   border: none;
   font-weight: 500;
   font-size: 1.6rem;
+  background-color: #FFF;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: .5rem;
+  font-size: 1.4rem;
 }
