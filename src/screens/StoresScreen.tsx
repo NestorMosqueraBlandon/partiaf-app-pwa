@@ -23,7 +23,6 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
 
   const setCategoryElements = (name: string) => {
     setCategory(name)
-    setOpenCategories(false);
   }
   function apiFetch<T>(url: string): Promise<T> {
     return fetch(url)
@@ -48,16 +47,28 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
     })
   },[hasStores])
 
-  console.log(data)
+  console.log(category)
 
   return (
     <>
     <div className='background data-container'>
       <Header />
-      <div className="sub-header">
+
+      <div className="search-form">
+      <i className='bx bx-search' ></i>
+      <input type="text" className='search-input' placeholder='A donde quires ir?' />
+      </div>
+      <div className="store-categories">
+        <button onClick={() => setCategory('')}>Todo</button>
+        <button onChange={() => setCategory('Bar')} >Bares</button>
+        <button onChange={() => setCategory('Discoteca')} >Discotecas</button>
+        <button onChange={() => setCategory('Gastrobar')} >Gastrobares</button>
+
+      </div>
+      {/* <div className="sub-header">
         <button><i className='bx bx-filter' ></i> Filtrar</button>
         <button onClick={() => setOpenCategories(true)}> Cambiar categoria</button>
-      </div>
+      </div> */}
       <div className="data-container">
 
       {hasStores? (
@@ -74,19 +85,6 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
       </div>
     </div>
 
-    <div className={openCategories? "categories active" : "categories"}>
-      <div className="category__header">
-      <p>Selecciona una categoria</p>
-        <button onClick={() => setOpenCategories(false)}>Cerrar</button>
-      </div>
-
-      <ul>
-      <li><button onClick={()   => setCategoryElements('')} >Todo</button></li>
-        <li><button onClick={() => setCategoryElements('Bar')} >Bares</button></li>
-        <li><button onClick={() => setCategoryElements('Discoteca')} >Discotecas</button></li>
-        <li><button onClick={() => setCategoryElements('Gastrobar')} >Gastrobares</button></li>
-      </ul>
-    </div>
     <BottonMenu />
     </>
 

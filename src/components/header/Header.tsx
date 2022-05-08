@@ -9,7 +9,10 @@ export const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     
       <img src="/img/logo/logo-partiaf-secondary.svg" alt="Logo" />
       <span>
-        <button className='header-coin'><i className='bx bx-coin-stack' ></i> 50,000</button>
+        <button>
+          <i className='bx bx-chat' ></i>
+        </button>
+        {/* <button className='header-coin'><i className='bx bx-coin-stack' ></i> 50,000</button> */}
       </span>
     
     </header>
