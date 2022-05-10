@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import storeActions from '../actions/storeActions'
@@ -10,16 +10,17 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const storeOne = useSelector((state: any) => state.storeOne);
     const { loading, error, data: store } = storeOne;
 
-    const {id} = useParams();
+    const { id } = useParams();
 
-
+    const [openMenu, setOpenMenu] = useState(false);
+    const [openCover, setOpenCover] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(storeActions.one(id) as any);
     }, [dispatch])
 
-    if(!loading){
+    if (!loading) {
         console.log(error)
         // console.log(store[0]?.chairs)
     }
@@ -30,19 +31,19 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <>
 
                     <div className='store-container'>
-                    <img className='store-image' src={store[0].images[0]} alt="" />
-                    <div className="store-info">
-                        <div className="store-info-header">
-                        <h2>{store[0].name}</h2>
-                        <div>
-                            <button><i className='bx bx-heart'></i></button>
-                            <button><i className='bx bx-arrow-back' ></i></button>
-                        </div>
-                        </div>
+                        <img className='store-image' src={store[0].images[0]} alt="" />
+                        <div className="store-info">
+                            <div className="store-info-header">
+                                <h2>{store[0].name}</h2>
+                                <div>
+                                    <button><i className='bx bx-heart'></i></button>
+                                    <button><i className='bx bx-arrow-back' ></i></button>
+                                </div>
+                            </div>
 
-                        <details>
-                            <summary><span><i className='bx bx-no-entry' ></i> ENTRADAS</span>  <i className='bx bx-plus' ></i> </summary>
-                            {store[0].covers.map((chair: any) => (
+                            {/* <details>
+                                <summary><span><i className='bx bx-no-entry' ></i> ENTRADAS</span>  <i className='bx bx-plus' ></i> </summary>
+                                {store[0].covers.map((chair: any) => (
                                     <div key={chair._id} className="menu-item cover" >
                                         <div className='cover-header'>
                                             <h3>{chair.type}</h3>
@@ -62,52 +63,103 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                         </div>
                                     </div>
                                 ))}
-                        </details>
+                            </details> */}
 
-                        <details>
-                            <summary><span><i className='bx bxs-bookmark' ></i> RESERVAS</span>  <i className='bx bx-plus' ></i> </summary>
-                            <div>
-                                {store[0].chairs.map((chair: any) => (
-                                    <div key={chair._id} className="menu-item" >
-                                        <h3>{chair.type}</h3>
-                                        <span>{chair.price}</span>
-                                    </div>
-                                ))}
+                            {/* <details>
+                                <summary><span><i className='bx bxs-bookmark' ></i> RESERVAS</span>  <i className='bx bx-plus' ></i> </summary>
+                                <div>
+                                    {store[0].chairs.map((chair: any) => (
+                                        <div key={chair._id} className="menu-item" >
+                                            <h3>{chair.type}</h3>
+                                            <span>{chair.price}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </details> */}
+                            <div className="buttons-item">
+                            <button onClick={() => setOpenMenu(true)}><i className='bx bx-no-entry' ></i> ENTRADAS</button>
+                            <button onClick={() => setOpenMenu(true)}><i className='bx bxs-bookmark' ></i> RESERVAS</button>
+                            <button onClick={() => setOpenMenu(true)}><i className='bx bxs-food-menu' ></i> MENU</button>
                             </div>
-                        </details>
+                            {/* <details>
+                                <button><span><i className='bx bxs-food-menu' ></i> MENU </span> <i className='bx bx-plus' ></i></button>
+                                <div>
+                                    {store[0].menus.map((menu: any) => (
+                                        <div key={menu._id} className="menu-item" >
+                                            <h3>{menu.title}</h3>
+                                            {menu.items.map((item: any) => (
+                                                <>
+                                                    <img src={item.image} alt={item.name} />
+                                                    <div>
+                                                        <span>{item.name}</span>
+                                                        <span>{DivisaFormater(item.price)}</span>
+                                                    </div>
+                                                </>
 
-                        <details>
-                            <summary><span><i className='bx bxs-food-menu' ></i> MENU </span> <i className='bx bx-plus' ></i></summary>
-                            <div>
-                                {store[0].menus.map((menu: any) => (
-                                    <div key={menu._id} className="menu-item" >
-                                        <h3>{menu.title}</h3>
-                                        {menu.items.map((item:any) => (
-                                            <>
-                                            <img src={item.image} alt={item.name} />
-                                            <div>
-                                            <span>{item.name}</span>
-                                            <span>{DivisaFormater(item.price)}</span>                                            
-                                            </div>
-                                        </>
+                                            ))}
 
-                                        ))}
+                                        </div>
+                                    ))}
+                                </div>
+                            </details> */}
+                            <div className="contact-new">
+                                <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
+                                <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
+                                <Link to="/"><i className='bx bxs-location-plus'></i> Ubicacion</Link>
 
-                                    </div>
-                                ))}
                             </div>
-                        </details>
-                        <div className="contact-new">
-                            <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
-                            <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
-                            <Link to="/"><i className='bx bxs-location-plus'></i> Ubicacion</Link>
-            
+
                         </div>
-
-                    </div>
                     </div>
                 </>
 
+            )}
+
+{openCover && (
+
+<div className="menu-screen" >
+                <button className='back-btn' onClick={() => setOpenCover(false)}>Atras </button>
+    {!loading && store[0].menus.map((menu: any) => (
+        <div key={menu._id} className="menu-screen-item" >
+            <h3>{menu.title}</h3>
+            {menu.items.map((item: any) => (
+                <div className='screen-item-cog'>
+                    <img src={item.image} alt={item.name} />
+                    <div>
+                        <span className='item-name'>{item.name}</span>
+                        <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
+                        <span>{DivisaFormater(item.price)}</span>
+                    </div>
+                </div>
+
+            ))}
+
+        </div>
+    ))}
+</div>
+)}
+            {openMenu && (
+
+            <div className="menu-screen" >
+                            <button className='back-btn' onClick={() => setOpenMenu(false)}>Atras </button>
+                {!loading && store[0].menus.map((menu: any) => (
+                    <div key={menu._id} className="menu-screen-item" >
+                        <h3>{menu.title}</h3>
+                        {menu.items.map((item: any) => (
+                            <div className='screen-item-cog'>
+                                <img src={item.image} alt={item.name} />
+                                <div>
+                                    <span className='item-name'>{item.name}</span>
+                                    <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
+                                    <span>{DivisaFormater(item.price)}</span>
+                                </div>
+                            </div>
+
+                        ))}
+
+                    </div>
+                ))}
+            </div>
             )}
 
             <BottonMenu />

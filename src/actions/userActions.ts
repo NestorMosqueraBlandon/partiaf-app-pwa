@@ -36,7 +36,8 @@ export const signup = (user: any) => async(dispatch: any) => {
     }
 }
 
-export const sigout = () => async(dispatch: any) => {
+export const signout = () => async(dispatch: any) => {
     localStorage.removeItem('userInfo');
     dispatch({type: USER_SIGNOUT});
+    document.location.href = "/"
 }

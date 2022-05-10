@@ -135,6 +135,7 @@
   border-radius: 1rem;
   display: flex;
   align-items: center;
+  flex-direction: row-reverse;
   justify-content: space-between;
   margin-bottom: 0;
   position: fixed;
@@ -146,7 +147,8 @@
 }
 .header img{
   max-width: 40%;
-  padding-left: 2REM;
+  padding-right: 26rem;
+  position: absolute;
 }
 
 .header button{
@@ -774,4 +776,96 @@ border: 1px solid rgba(0, 0, 0, .05);
   margin-bottom: 1rem;
   border-radius: .5rem;
   font-size: 1.4rem;
+}
+.danger{
+  width: 100%;
+  display: flex;
+}
+.btn-danger{
+  width: 90%;
+  margin: 0 auto;
+  height: 4rem;
+  background-color: red;
+  opacity: .9;
+  border: none;
+  color: #DCDCDC;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.menu-screen{
+  position: relative;
+  background-color: #FFF;
+  height: 100vh;
+  z-index: 99;
+  padding-top: 6rem;
+}
+
+.menu-screen img{
+  width:  70px;
+  height: 70px;
+  border-radius: 50rem;
+}
+
+.menu-screen-item h3{
+  font-weight: 500;
+  /* margin-bottom: 1rem; */
+  padding: 2rem;
+}
+
+.screen-item-cog{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding:1rem 2rem;
+  background-color: #FFF;
+  border-bottom: 1PX solid rgba(0, 0, 0, .3);
+}
+
+.screen-item-cog > div{
+  display: flex;
+  flex-direction: column;
+}
+
+.screen-item-cog > div span{
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.screen-item-cog > div .item-name{
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.screen-item-cog > div p{
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, .6);
+  margin-bottom: 1rem;
+  max-width: 98%;
+}
+
+.buttons-item{
+  padding: 2.5rem;
+  /* width: 100%; */
+}
+
+.buttons-item button{
+  width: 100%;
+  height: 4rem;
+  border: none;
+  font-size: 1.6rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, .5);
+  background-color: #fff;
+}
+
+.back-btn{
+  background-color: transparent;
+  border: none;
+  padding:0 2rem;
+  font-size: 2rem;
+  font-size: 1.6rem;
 }

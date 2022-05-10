@@ -1,6 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { signout } from '../actions/userActions';
 import BottonMenu from '../components/BottonMenu';
 import { Header } from '../components/header/Header';
 
@@ -10,6 +11,12 @@ const ProfileScreen = () => {
   const {userInfo} = userSignin;
 
   console.log(userInfo)
+
+  const dispatch = useDispatch();
+
+  const signoutHadler = () => {
+      dispatch(signout() as any);
+  }
 
   return (
     <div >
@@ -65,6 +72,10 @@ const ProfileScreen = () => {
                 </div>
             
             </div>
+        </div>
+
+        <div className="danger">
+        <button className='btn-danger' onClick={() => signoutHadler()}>Cerrar sesion</button>
         </div>
 
         <BottonMenu />
