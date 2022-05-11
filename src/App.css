@@ -135,7 +135,6 @@
   border-radius: 1rem;
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
   justify-content: space-between;
   margin-bottom: 0;
   position: fixed;
@@ -143,12 +142,11 @@
 }
 
 .header span{
-  padding-right: 2rem;
+  padding-right: 1rem;
 }
 .header img{
   max-width: 40%;
-  padding-right: 26rem;
-  position: absolute;
+  padding-left: 1rem;
 }
 
 .header button{
@@ -796,7 +794,7 @@ border: 1px solid rgba(0, 0, 0, .05);
 .menu-screen{
   position: relative;
   background-color: #FFF;
-  height: 100vh;
+  height: 90vh;
   z-index: 99;
   padding-top: 6rem;
 }
@@ -818,9 +816,8 @@ border: 1px solid rgba(0, 0, 0, .05);
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
-  padding:1rem 2rem;
+  padding:2rem 2rem;
   background-color: #FFF;
-  border-bottom: 1PX solid rgba(0, 0, 0, .3);
 }
 
 .screen-item-cog > div{
@@ -868,4 +865,139 @@ border: 1px solid rgba(0, 0, 0, .05);
   padding:0 2rem;
   font-size: 2rem;
   font-size: 1.6rem;
+}
+
+.menu-screen .order-btn{
+  width: 100%;
+  position: absolute;
+  /* bottom: 0px; */
+  z-index: 9999999;
+}
+
+.footer-price{
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  z-index: 999999;
+  width: 100%;
+  background-color: #FFF;
+  height: 7rem;
+
+  /* display: none; */
+}
+
+
+
+.order-btn{
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 5rem;
+  border: none;
+  font-size: 2.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+}
+
+.footer-container{
+  position: fixed;
+  width: 100%;
+  bottom: -70rem;
+  height: 50rem;
+  background-color: #FFF;
+  z-index: 9999999999;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, .1);
+  border-radius: 2rem;
+  transition: all .5s ease-in-out;
+}
+.footer-container.active{
+  bottom: 0rem;
+}
+
+.footer-container h2{
+  padding-left: 1rem;
+  margin-top: 35rem;
+}
+
+.footer-container header{
+  padding: 1rem;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.footer-container header button{
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+
+}
+
+.partiaf-loog-menu{
+  width: 2.2rem;
+}
+
+.amount{
+  height: 2rem;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;gap: 2rem;
+}
+
+.amount button{
+  background-color: transparent;
+  height: 3rem;
+  width: 3rem;
+  font-size: 3rem;
+  border: none;
+  margin-bottom: 2rem;
+}
+
+.back-btn{
+  background-color: #FFF;
+  width: 10%;
+  text-align: left;
+  position: absolute;
+  top: 0;
+  z-index: 999999999999999;
+  height: 4rem;
+  font-size: 3rem;
+  padding-left: 1rem;
+  padding-top: .8rem;
+}
+
+.menu-screen > h3{
+  padding: 1rem;
+}
+
+.screen-item-cog-chair{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.screen-item-cog-chair > div{
+  display: flex;
+  flex-direction: column;
+  padding:1rem 2rem;
+}
+
+.screen-item-cog-chair .limit{
+}
+
+.screen-item-cog-chair > div span{
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.screen-item-cog-chair > div .item-name{
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.screen-item-cog-chair > div p{
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, .6);
+  margin-bottom: 1rem;
+  max-width: 98%;
 }

@@ -21,7 +21,7 @@ const BottonMenu = () => {
         <i className='bx bx-camera' ></i>
       </Link>
       <Link to="/">
-      <i className='bx bx-color' ></i>
+        <img className='partiaf-loog-menu' src="/logopartiaf.svg" alt="" />
       </Link>
       <Link to="/profile" className='botton-user'>
         <img src={userInfo.image} alt="" />

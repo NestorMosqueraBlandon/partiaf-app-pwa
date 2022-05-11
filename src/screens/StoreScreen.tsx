@@ -13,7 +13,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const { id } = useParams();
 
     const [openMenu, setOpenMenu] = useState(false);
+    const [openFooter, setOpenFooter] = useState(false);
     const [openCover, setOpenCover] = useState(false);
+    const [openBooking, setOpenBooking] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -27,6 +29,22 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     return (
         <div>
             <Header />
+
+            {openMenu && (
+
+                <button className='back-btn' onClick={() => setOpenMenu(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
+            )}
+            {openCover && (
+
+                <button className='back-btn' onClick={() => setOpenCover(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
+            )}
+            {openBooking && (
+
+                <button className='back-btn' onClick={() => setOpenBooking(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
+            )}
+
+
+
             {!loading && (
                 <>
 
@@ -77,9 +95,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 </div>
                             </details> */}
                             <div className="buttons-item">
-                            <button onClick={() => setOpenMenu(true)}><i className='bx bx-no-entry' ></i> ENTRADAS</button>
-                            <button onClick={() => setOpenMenu(true)}><i className='bx bxs-bookmark' ></i> RESERVAS</button>
-                            <button onClick={() => setOpenMenu(true)}><i className='bx bxs-food-menu' ></i> MENU</button>
+                                <button onClick={() => setOpenCover(true)}><i className='bx bx-no-entry' ></i> ENTRADAS</button>
+                                <button onClick={() => setOpenBooking(true)}><i className='bx bxs-bookmark' ></i> RESERVAS</button>
+                                <button onClick={() => setOpenMenu(true)}><i className='bx bxs-food-menu' ></i> MENU</button>
                             </div>
                             {/* <details>
                                 <button><span><i className='bx bxs-food-menu' ></i> MENU </span> <i className='bx bx-plus' ></i></button>
@@ -115,53 +133,84 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
             )}
 
-{openCover && (
+            {openCover && (
 
-<div className="menu-screen" >
-                <button className='back-btn' onClick={() => setOpenCover(false)}>Atras </button>
-    {!loading && store[0].menus.map((menu: any) => (
-        <div key={menu._id} className="menu-screen-item" >
-            <h3>{menu.title}</h3>
-            {menu.items.map((item: any) => (
-                <div className='screen-item-cog'>
-                    <img src={item.image} alt={item.name} />
-                    <div>
-                        <span className='item-name'>{item.name}</span>
-                        <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
-                        <span>{DivisaFormater(item.price)}</span>
-                    </div>
+                <div className="menu-screen" >
+                    <button className='back-btn' onClick={() => setOpenCover(false)}>Atras </button>
+                    {!loading && store[0].covers.map((cover: any) => (
+                        <div key={cover._id} className="menu-screen-item" >
+                            <h3>{cover.type}</h3>
+                        </div>
+                    ))}
                 </div>
+            )}
+            {openBooking && (
 
-            ))}
+                <div className="menu-screen" >
+                        <h3>Reservas disponibles</h3>
+                    {!loading && store[0].chairs.map((menu: any) => (
+                        <div key={menu._id} className="menu-screen-item" >
 
-        </div>
-    ))}
-</div>
-)}
-            {openMenu && (
-
-            <div className="menu-screen" >
-                            <button className='back-btn' onClick={() => setOpenMenu(false)}>Atras </button>
-                {!loading && store[0].menus.map((menu: any) => (
-                    <div key={menu._id} className="menu-screen-item" >
-                        <h3>{menu.title}</h3>
-                        {menu.items.map((item: any) => (
-                            <div className='screen-item-cog'>
-                                <img src={item.image} alt={item.name} />
+                            <div className='screen-item-cog-chair'>
                                 <div>
-                                    <span className='item-name'>{item.name}</span>
-                                    <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
-                                    <span>{DivisaFormater(item.price)}</span>
+                                    <span className='item-name'>{menu.type}</span>
+                                    <span className='limit'>Personas por mesa:{menu.limit}</span>
+
+                                    <span className='limit'>{DivisaFormater(menu.price)}</span>
                                 </div>
                             </div>
+                            <div className="amount">
+                                
+                            </div>
+                        </div>
+                    ))}
 
-                        ))}
 
-                    </div>
-                ))}
-            </div>
+                </div>
+            )}
+            {openMenu && (
+
+                <div className="menu-screen" >
+                    {!loading && store[0].menus.map((menu: any) => (
+                        <div key={menu._id} className="menu-screen-item" >
+                            <h3>{menu.title}</h3>
+                            {menu.items.map((item: any) => (
+                                <>
+                                    <div className='screen-item-cog'>
+                                        <img src={item.image} alt={item.name} />
+                                        <div>
+                                            <span className='item-name'>{item.name}</span>
+                                            <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
+                                            <span>{DivisaFormater(item.price)}</span>
+                                        </div>
+                                    </div>
+                                    <div className="amount">
+                                        <button>-</button>
+                                        <button>+</button>
+                                    </div>
+                                </>
+
+                            ))}
+                        </div>
+                    ))}
+
+
+                </div>
             )}
 
+            {(openMenu || openCover || openBooking) && (
+
+                <div className="footer-price">
+                    <button onClick={() => setOpenFooter(true)} className='order-btn'><i className='bx bxs-chevron-up'></i></button>
+                </div>
+            )}
+
+
+            <div className={openFooter ? `footer-container active` : `footer-container`}>
+                <header><button onClick={() => setOpenFooter(false)}><i className='bx bx-x' ></i></button></header>
+
+                <h2>Total: $145.000</h2>
+            </div>
             <BottonMenu />
         </div>
     )
