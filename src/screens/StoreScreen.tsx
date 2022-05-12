@@ -17,14 +17,14 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [openFooter, setOpenFooter] = useState(false);
     const [openCover, setOpenCover] = useState(false);
     const [openBooking, setOpenBooking] = useState(false);
+    // const [open, setOpenBooking] = useState(false);
+
     const [price, setPrice] = useState(0);
     const dispatch = useDispatch();
 
     let totalPrice = 0
     
     const [qr, setqr] = useState(false);
-
-
 
     useEffect(() => {
         dispatch(storeActions.one(id) as any);
@@ -51,11 +51,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <button className='back-btn' onClick={() => setOpenBooking(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
             )}
 
-
+            <Link to="/" className='back-btn-link' ><i className='bx bx-left-arrow-alt' ></i> </Link>
 
             {!loading && (
                 <>
-
                     <div className='store-container'>
                         <img className='store-image' src={store[0].images[0]} alt="" />
                         <div className="store-info">
@@ -63,7 +62,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 <h2>{store[0].name}</h2>
                                 <div>
                                     <button><i className='bx bx-heart'></i></button>
-                                    <button><i className='bx bx-arrow-back' ></i></button>
                                 </div>
                             </div>
 
@@ -103,7 +101,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 </div>
                             </details> */}
                             <div className="buttons-item">
-                                <button onClick={() => setOpenCover(true)}><i className='bx bx-no-entry' ></i> ENTRADAS</button>
+                                <button onClick={() => setOpenCover(true)}><i className='bx bx-no-entry' ></i> COVERS</button>
                                 <button onClick={() => setOpenBooking(true)}><i className='bx bxs-bookmark' ></i> RESERVAS</button>
                                 <button onClick={() => setOpenMenu(true)}><i className='bx bxs-food-menu' ></i> MENU</button>
                             </div>

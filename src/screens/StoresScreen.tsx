@@ -60,9 +60,9 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
       </div>
       <div className="store-categories">
         <button onClick={() => setCategory('')}>Todo</button>
-        <button onChange={() => setCategory('Bar')} >Bares</button>
-        <button onChange={() => setCategory('Discoteca')} >Discotecas</button>
-        <button onChange={() => setCategory('Gastrobar')} >Gastrobares</button>
+        <button onClick={() => setCategory('Bar')} >Bares</button>
+        <button onClick={() => setCategory('Discoteca')} >Discotecas</button>
+        <button onClick={() => setCategory('Gastrobar')} >Gastrobares</button>
 
       </div>
       {/* <div className="sub-header">
