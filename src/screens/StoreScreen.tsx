@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import storeActions from '../actions/storeActions'
@@ -16,7 +17,14 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [openFooter, setOpenFooter] = useState(false);
     const [openCover, setOpenCover] = useState(false);
     const [openBooking, setOpenBooking] = useState(false);
+    const [price, setPrice] = useState(0);
     const dispatch = useDispatch();
+
+    let totalPrice = 0
+    
+    const [qr, setqr] = useState(false);
+
+
 
     useEffect(() => {
         dispatch(storeActions.one(id) as any);
@@ -185,8 +193,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                         </div>
                                     </div>
                                     <div className="amount">
-                                        <button>-</button>
-                                        <button>+</button>
+                                        <button onClick={() => setPrice(price > 0? Number(price) - Number(item.price) : 0)}>-</button>
+                                        <button onClick={() => setPrice(Number(price) + Number(item.price))}>+</button>
                                     </div>
                                 </>
 
@@ -202,6 +210,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                 <div className="footer-price">
                     <button onClick={() => setOpenFooter(true)} className='order-btn'><i className='bx bxs-chevron-up'></i></button>
+                    <h3>{DivisaFormater(price)}</h3>
+                    <button className='pay-btn' onClick={() => setqr(true)}>Pagar</button>
                 </div>
             )}
 
@@ -211,6 +221,16 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                 <h2>Total: $145.000</h2>
             </div>
+            
+            {qr && (
+
+            <div className="qr-screen">
+                <h3>Este es tu QR para realizar el pago de forma fisica y adminsitrar tu pedido </h3>
+                <QRCode value={`${price}`} />
+                <button onClick={() => setqr(false)}>Aceptar</button>
+            </div>
+            )}
+
             <BottonMenu />
         </div>
     )
