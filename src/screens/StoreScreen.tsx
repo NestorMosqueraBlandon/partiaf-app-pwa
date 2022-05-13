@@ -271,7 +271,17 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             <div className="qr-screen">
                 <h3>Este es tu QR para realizar el pago de forma fisica y adminsitrar tu pedido </h3>
                 <QRCode value={`${price}`} />
-                <button onClick={() => setqr(false)}>Aceptar</button>
+                <form action="https://real-vision-api.herokuapp.com/mercadopago" method="POST" encType='multipart/form-data'>
+                <input
+                            type="hidden"
+                            name="title"
+                            value="Partiaf Products"
+                        />
+                        <input type="hidden" name="price" value={Number(totalPrice)} />
+                        <input type='submit' className='placeholder-btn' value="ACEPTAR" />
+
+                </form>
+                {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
             </div>
             )}
 
