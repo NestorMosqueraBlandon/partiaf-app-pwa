@@ -938,8 +938,8 @@ border: 1px solid rgba(0, 0, 0, .05);
 .footer-container{
   position: fixed;
   width: 100%;
-  bottom: -70rem;
-  height: 50rem;
+  bottom: -85rem;
+  height: 85rem;
   background-color: #FFF;
   z-index: 9999999999;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, .1);
@@ -952,13 +952,14 @@ border: 1px solid rgba(0, 0, 0, .05);
 
 .footer-container h2{
   padding-left: 1rem;
-  margin-top: 35rem;
+  text-align: center;
+  margin-top: -3.5rem;
 }
 
 .footer-container header{
   padding: 1rem;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .footer-container header button{
@@ -1114,7 +1115,8 @@ border: 1px solid rgba(0, 0, 0, .05);
 }
 
 .screen-item-cog{
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
 .menu-screen-item .price{
@@ -1126,4 +1128,30 @@ border: 1px solid rgba(0, 0, 0, .05);
   width: 100%;
   height: 4rem;
   background-color: #FDBD00;
+}
+
+
+.cart-content{
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+.cart-item .cart-header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.cart-item p{
+  font-size: 1.4rem;
+}
+
+
+
+.cart-item h4 span{
+  border: 1px solid rgba(0, 0, 0, .2);
+  padding: .5rem;
 }

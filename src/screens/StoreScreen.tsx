@@ -262,8 +262,20 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
             <div className={openFooter ? `footer-container active` : `footer-container`}>
                 <header><button onClick={() => setOpenFooter(false)}><i className='bx bx-x' ></i></button></header>
-
                 <h2>Total: $145.000</h2>
+                <div className="cart-content">
+
+                {cartItem.map((item:any) => (
+                    <div className="cart-item">
+                        <div className="cart-header">
+                        <h4>{item.name} <span>{item.qty}</span></h4>
+                            <p>{item.price}</p>
+                        </div>
+                        <p>De los tintos es el que posee mas cuerpo, es elegante e ideal para acompanar carnes como u  corte de res en salsa de pimienta</p>
+                    </div>
+                ))}
+                </div>
+
             </div>
             
             {qr && (
