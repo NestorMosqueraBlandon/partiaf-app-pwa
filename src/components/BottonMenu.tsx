@@ -7,7 +7,6 @@ const BottonMenu = () => {
   const userSignin = useSelector((state: any) => state.userSignin);
   const {userInfo} = userSignin;
 
-  console.log(userInfo)
 
   return (
     <div className='bottom-menu'>

@@ -17,14 +17,47 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [openFooter, setOpenFooter] = useState(false);
     const [openCover, setOpenCover] = useState(false);
     const [openBooking, setOpenBooking] = useState(false);
+    const [menuCat, setMenuCat] = useState("");
     // const [open, setOpenBooking] = useState(false);
 
     const [price, setPrice] = useState(0);
     const dispatch = useDispatch();
 
-    let totalPrice = 0
     
     const [qr, setqr] = useState(false);
+
+    const [cartItem, setCartItem] = useState<any>([])
+    const setCart = (product: any, operator:any) => {
+
+        let totalPrice = 0
+        if(operator == "add"){
+            const index = cartItem.findIndex((cart:any) => cart._id == product._id);
+            if(index >= 0){
+                cartItem[index].qty++;   
+                setCartItem(cartItem);
+                totalPrice = cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                setPrice(totalPrice)
+            }else{
+                setCartItem([...cartItem, {...product, qty: 1}]);
+            }
+        }
+
+        if(operator == "minus"){
+            const index = cartItem.findIndex((cart:any) => cart._id == product._id);
+            if(index >= 0){
+                cartItem[index].qty--;  
+                setCartItem(cartItem);
+                totalPrice = cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                setPrice(totalPrice)
+                if(cartItem[index].qty <= 0){
+                    cartItem.splice(index, 1)
+                }
+            }
+        }
+    }
+
+    let totalPrice = cartItem.length > 0 && cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+
 
     useEffect(() => {
         dispatch(storeActions.one(id) as any);
@@ -177,7 +210,15 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             {openMenu && (
 
                 <div className="menu-screen" >
+                    <div className='menu-cat'>
+
                     {!loading && store[0].menus.map((menu: any) => (
+                        <div onClick={() => setMenuCat(menu.title)}>{menu.title}</div>
+                    ))}
+                    </div>
+
+                    {!loading && store[0].menus.filter((menu: any) => menu.title.includes(menuCat))
+                    .map((menu: any) => (
                         <div key={menu._id} className="menu-screen-item" >
                             <h3>{menu.title}</h3>
                             {menu.items.map((item: any) => (
@@ -187,13 +228,18 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                         <div>
                                             <span className='item-name'>{item.name}</span>
                                             <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
+                                            <div className="price">
                                             <span>{DivisaFormater(item.price)}</span>
+
+                                            <div className="amount">
+                                                <button onClick={() => setCart(item, "minus")}>-</button>
+                                                <p className="input">{cartItem.filter((c:any) => c._id == item._id)[0]?.qty? cartItem.filter((c:any) => c._id == item._id)[0]?.qty : 0 }</p>
+                                                <button onClick={() => setCart(item, "add")}>+</button>
+                                            </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="amount">
-                                        <button onClick={() => setPrice(price > 0? Number(price) - Number(item.price) : 0)}>-</button>
-                                        <button onClick={() => setPrice(Number(price) + Number(item.price))}>+</button>
-                                    </div>
+                               
                                 </>
 
                             ))}
@@ -208,7 +254,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                 <div className="footer-price">
                     <button onClick={() => setOpenFooter(true)} className='order-btn'><i className='bx bxs-chevron-up'></i></button>
-                    <h3>{DivisaFormater(price)}</h3>
+                    <h3>{DivisaFormater(totalPrice)}</h3>
                     <button className='pay-btn' onClick={() => setqr(true)}>Pagar</button>
                 </div>
             )}
