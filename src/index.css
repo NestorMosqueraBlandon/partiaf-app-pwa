@@ -22,8 +22,9 @@ code {
 }
 
 a{
-  display: inline-block;
+  display: -webkit-inline-box;
   text-decoration: none;
+  -webkit-appearance: none;
   text-align: center;
   padding: .7rem 0;
 }

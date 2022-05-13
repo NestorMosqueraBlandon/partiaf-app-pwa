@@ -1071,9 +1071,3 @@ border: 1px solid rgba(0, 0, 0, .05);
   color: #fff;
 }
 
-_::-webkit-full-page-media, _:future, :root .safari_only {
-
-  color:#0000FF; 
-  background-color:#CCCCCC; 
-
-}
