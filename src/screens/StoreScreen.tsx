@@ -227,7 +227,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                         <img src={item.image} alt={item.name} />
                                         <div>
                                             <span className='item-name'>{item.name}</span>
-                                            <p>Pollo a la plancha con queso mozzarella,falafel, tomate, apio sobre lechigas</p>
+                                            <p>{item.description}</p>
                                             <div className="price">
                                             <span>{DivisaFormater(item.price)}</span>
 
@@ -261,7 +261,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
             <div className={openFooter ? `footer-container active` : `footer-container`}>
                 <header><button onClick={() => setOpenFooter(false)}><i className='bx bx-x' ></i></button></header>
-                <h2>Total: $145.000</h2>
+                <h2>Total: {DivisaFormater(totalPrice)}</h2>
                 <div className="cart-content">
 
                 {cartItem.map((item:any) => (
@@ -270,7 +270,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         <h4>{item.name} <span>{item.qty}</span></h4>
                             <p>{item.price}</p>
                         </div>
-                        <p>De los tintos es el que posee mas cuerpo, es elegante e ideal para acompanar carnes como u  corte de res en salsa de pimienta</p>
+                        <p>{item.description}</p>
                     </div>
                 ))}
                 </div>
@@ -282,7 +282,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             <div className="qr-screen">
                 <h3>Metodos de pago </h3>
                 {/* <QRCode value={`${price}`} /> */}
-                <button className="btn-pay">Paricoins</button>
+                <button className="btn-pay">Particoins</button>
                 <Link to="/qr" className="btn-pay-link">Efectivo</Link>
                 <form action="https://real-vision-api.herokuapp.com/mercadopago" method="POST" encType='multipart/form-data'>
                 <input
