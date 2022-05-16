@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import { StoreScreen } from "./screens/StoreScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import SharedScreen from "./screens/SharedScreen";
+import { CreditsScreen } from "./screens/CreditsScreen";
+import { QrScreen } from "./screens/QrScreen";
 
 export interface IApplicationProps { }
 
@@ -30,6 +32,9 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                         <Route path="/store/:id" element={<StoreScreen/>}  />
                         <Route path="/profile" element={<ProfileScreen/>}  />
                         <Route path="/shared" element={<SharedScreen />}  />
+                        <Route path="/credits" element={<CreditsScreen />}  />
+                        <Route path="/qr" element={<QrScreen />}  />
+            
                     </>
 
                 ) : (

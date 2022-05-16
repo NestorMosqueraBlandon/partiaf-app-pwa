@@ -232,16 +232,15 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                             <span>{DivisaFormater(item.price)}</span>
 
                                             <div className="amount">
-                                                <button onClick={() => setCart(item, "minus")}>-</button>
+
+                                                <button className={cartItem.filter((c:any) => c._id == item._id)[0]?.qty == 1? 'trash-btn' :  ``} onClick={() => setCart(item, "minus")}>{cartItem.filter((c:any) => c._id == item._id)[0]?.qty == 1? <i className='trash-btn bx bx-trash-alt'></i>  :  `-`}</button>
                                                 <p className="input">{cartItem.filter((c:any) => c._id == item._id)[0]?.qty? cartItem.filter((c:any) => c._id == item._id)[0]?.qty : 0 }</p>
                                                 <button onClick={() => setCart(item, "add")}>+</button>
                                             </div>
                                             </div>
                                         </div>
                                     </div>
-                               
                                 </>
-
                             ))}
                         </div>
                     ))}
@@ -281,8 +280,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             {qr && (
 
             <div className="qr-screen">
-                <h3>Este es tu QR para realizar el pago de forma fisica y adminsitrar tu pedido </h3>
-                <QRCode value={`${price}`} />
+                <h3>Metodos de pago </h3>
+                {/* <QRCode value={`${price}`} /> */}
+                <button className="btn-pay">Paricoins</button>
+                <Link to="/qr" className="btn-pay-link">Efectivo</Link>
                 <form action="https://real-vision-api.herokuapp.com/mercadopago" method="POST" encType='multipart/form-data'>
                 <input
                             type="hidden"
@@ -290,9 +291,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                             value="Partiaf Products"
                         />
                         <input type="hidden" name="price" value={Number(totalPrice)} />
-                        <input type='submit' className='placeholder-btn' value="ACEPTAR" />
+                        <input type='submit' className='placeholder-btn' value="MercadoPago" />
 
                 </form>
+
                 {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
             </div>
             )}
