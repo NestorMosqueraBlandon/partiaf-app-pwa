@@ -27,7 +27,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [qr, setqr] = useState(false);
 
     const [cartItem, setCartItem] = useState<any>([])
-    const setCart = (product: any, operator:any) => {
+    const setCart = async(product: any, operator:any) => {
 
         let totalPrice = 0
         if(operator == "add"){
@@ -44,8 +44,11 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
         if(operator == "minus"){
             const index = cartItem.findIndex((cart:any) => cart._id == product._id);
+            console.log(index)
             if(index >= 0){
+                console.log(cartItem[index].qty)
                 cartItem[index].qty--;  
+                console.log(cartItem[index].qty)
                 setCartItem(cartItem);
                 totalPrice = cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
                 setPrice(totalPrice)
@@ -53,6 +56,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     cartItem.splice(index, 1)
                 }
             }
+
+            setCartItem([...cartItem])
+
+            console.log([...cartItem])
         }
     }
 
@@ -233,7 +240,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                                             <div className="amount">
 
-                                                <button className={cartItem.filter((c:any) => c._id == item._id)[0]?.qty == 1? 'trash-btn' :  ``} onClick={() => setCart(item, "minus")}>{cartItem.filter((c:any) => c._id == item._id)[0]?.qty == 1? <i className='trash-btn bx bx-trash-alt'></i>  :  `-`}</button>
+                                                <button onClick={() => setCart(item, "minus")}>-</button>
                                                 <p className="input">{cartItem.filter((c:any) => c._id == item._id)[0]?.qty? cartItem.filter((c:any) => c._id == item._id)[0]?.qty : 0 }</p>
                                                 <button onClick={() => setCart(item, "add")}>+</button>
                                             </div>
