@@ -1172,7 +1172,7 @@ border: 1px solid rgba(0, 0, 0, .05);
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 14rem;
+  gap: 12rem;
 }
 .placeholder-btn{
   width: 100%;
