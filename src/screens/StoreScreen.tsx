@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
+import { addToCart } from '../actions/cartActions'
 import storeActions from '../actions/storeActions'
 import BottonMenu from '../components/BottonMenu'
 import { Header } from '../components/header/Header'
@@ -10,6 +11,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
     const { loading, error, data: store } = storeOne;
+
+    const cart = useSelector((state: any) => state.cart);
+    const { cartItems: itemsCart } = cart;
 
     const { id } = useParams();
 
@@ -28,17 +32,23 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const [cartItem, setCartItem] = useState<any>([])
     const setCart = async(product: any, operator:any) => {
-
+        console.log("entro")
         let totalPrice = 0
         if(operator == "add"){
-            const index = cartItem.findIndex((cart:any) => cart._id == product._id);
+            console.log(itemsCart)
+            const index = itemsCart.findIndex((cart:any) => cart.product == product._id);
             if(index >= 0){
-                cartItem[index].qty++;   
-                setCartItem(cartItem);
-                totalPrice = cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                console.log("CUrrent QTY", itemsCart[index].qty++)
+                const newQty = itemsCart[index].qty++;   
+                console.log("NEW QTY", newQty);
+                // setCartItem(cartItem);
+                dispatch(addToCart(product, newQty) as any);
+
+                totalPrice = itemsCart.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
                 setPrice(totalPrice)
             }else{
-                setCartItem([...cartItem, {...product, qty: 1}]);
+                dispatch(addToCart(product, 1) as any);
+                // setCartItem([...cartItem, {...product, qty: 1}]);
             }
         }
 
@@ -57,13 +67,15 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 }
             }
 
-            setCartItem([...cartItem])
+            // dispatch(addToCart(product, 1) as any);
+
+            // setCartItem([...cartItem])
 
             console.log([...cartItem])
         }
     }
 
-    let totalPrice = cartItem.length > 0 && cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+    let totalPrice = itemsCart.length > 0 && itemsCart.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
 
 
     useEffect(() => {
@@ -241,7 +253,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                             <div className="amount">
 
                                                 <button onClick={() => setCart(item, "minus")}>-</button>
-                                                <p className="input">{cartItem.filter((c:any) => c._id == item._id)[0]?.qty? cartItem.filter((c:any) => c._id == item._id)[0]?.qty : 0 }</p>
+                                                <p className="input">{itemsCart.filter((c:any) => c.product == item._id)[0]?.qty? itemsCart.filter((c:any) => c.product == item._id)[0]?.qty : 0 }</p>
                                                 <button onClick={() => setCart(item, "add")}>+</button>
                                             </div>
                                             </div>
@@ -271,13 +283,19 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <h2>Total: {DivisaFormater(totalPrice)}</h2>
                 <div className="cart-content">
 
-                {cartItem.map((item:any) => (
+                {itemsCart.map((item:any) => (
                     <div className="cart-item">
                         <div className="cart-header">
                         <h4>{item.name} <span>{item.qty}</span></h4>
                             <p>{item.price}</p>
                         </div>
                         <p>{item.description}</p>
+                        <div className="amount">
+
+<button onClick={() => setCart({_id: item.product, ...item}, "minus")}>-</button>
+<p className="input">{itemsCart.filter((c:any) => c.product == item.product)[0]?.qty? itemsCart.filter((c:any) => c.product == item.product)[0]?.qty : 0 }</p>
+<button onClick={() => setCart({_id: item.product, ...item}, "add")}>+</button>
+</div>
                     </div>
                 ))}
                 </div>
