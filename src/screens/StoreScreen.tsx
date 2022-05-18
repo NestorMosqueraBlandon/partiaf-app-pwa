@@ -53,17 +53,21 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         }
 
         if(operator == "minus"){
-            const index = cartItem.findIndex((cart:any) => cart._id == product._id);
+            const index = itemsCart.findIndex((cart:any) => cart.product == product._id);
             console.log(index)
             if(index >= 0){
-                console.log(cartItem[index].qty)
-                cartItem[index].qty--;  
-                console.log(cartItem[index].qty)
-                setCartItem(cartItem);
-                totalPrice = cartItem.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                console.log("current Minus QTY", itemsCart[index].qty--)   
+                const newQty = itemsCart[index].qty--;
+                console.log("New Minus QTY", newQty)   
+                // cartItem[index].qty--;  
+                // console.log(cartItem[index].qty)
+                // setCartItem(cartItem);
+                dispatch(addToCart(product, newQty) as any);
+
+                totalPrice = itemsCart.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
                 setPrice(totalPrice)
-                if(cartItem[index].qty <= 0){
-                    cartItem.splice(index, 1)
+                if(itemsCart[index].qty <= 0){
+                    itemsCart.splice(index, 1)
                 }
             }
 
