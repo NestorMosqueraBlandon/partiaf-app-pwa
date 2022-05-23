@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
+import buyActions from '../actions/buyActions'
 import { addToCart } from '../actions/cartActions'
 import storeActions from '../actions/storeActions'
 import BottonMenu from '../components/BottonMenu'
@@ -11,6 +12,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
     const { loading, error, data: store } = storeOne;
+
+    console.log(store)
+    const userSignin = useSelector((state: any) => state.userSignin);
+    const {userInfo} = userSignin;
 
     const cart = useSelector((state: any) => state.cart);
     const { cartItems: itemsCart } = cart;
@@ -27,46 +32,47 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [price, setPrice] = useState(0);
     const dispatch = useDispatch();
 
-    
+
     const [qr, setqr] = useState(false);
 
     const [cartItem, setCartItem] = useState<any>([])
-    const setCart = async(product: any, operator:any) => {
+    const setCart = async (product: any, operator: any) => {
         console.log("entro")
         let totalPrice = 0
-        if(operator == "add"){
+        if (operator == "add") {
             console.log(itemsCart)
-            const index = itemsCart.findIndex((cart:any) => cart.product == product._id);
-            if(index >= 0){
+            const index = itemsCart.findIndex((cart: any) => cart.product == product._id);
+            if (index >= 0) {
                 console.log("CUrrent QTY", itemsCart[index].qty++)
-                const newQty = itemsCart[index].qty++;   
+                const newQty = itemsCart[index].qty++;
                 console.log("NEW QTY", newQty);
                 // setCartItem(cartItem);
                 dispatch(addToCart(product, newQty) as any);
 
-                totalPrice = itemsCart.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                totalPrice = itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0)
                 setPrice(totalPrice)
-            }else{
+            } else {
                 dispatch(addToCart(product, 1) as any);
                 // setCartItem([...cartItem, {...product, qty: 1}]);
             }
         }
 
-        if(operator == "minus"){
-            const index = itemsCart.findIndex((cart:any) => cart.product == product._id);
-            console.log(index)
-            if(index >= 0){
-                console.log("current Minus QTY", itemsCart[index].qty--)   
-                const newQty = itemsCart[index].qty--;
-                console.log("New Minus QTY", newQty)   
+        if (operator == "minus") {
+            const index = itemsCart.findIndex((cart: any) => cart.product == product._id);
+            console.log("ACTUAL QTY", itemsCart[index].qty)
+            if (index >= 0 && itemsCart[index].qty > 0) {
+                // console.log("current Minus QTY", itemsCart[index].qty--)
+                const newQty = itemsCart[index].qty -= 1;
                 // cartItem[index].qty--;  
                 // console.log(cartItem[index].qty)
                 // setCartItem(cartItem);
                 dispatch(addToCart(product, newQty) as any);
 
-                totalPrice = itemsCart.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                totalPrice = itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0)
                 setPrice(totalPrice)
-                if(itemsCart[index].qty <= 0){
+                if (itemsCart[index].qty === 0) {
+                    console.log(itemsCart[index])
+                    console.log("MINUS QTY", itemsCart[index].qty)
                     itemsCart.splice(index, 1)
                 }
             }
@@ -79,7 +85,17 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         }
     }
 
-    let totalPrice = itemsCart.length > 0 && itemsCart.reduce((a:any, c:any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+    let totalPrice = itemsCart.length > 0 && itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+
+
+
+    const buyHandler = () => {
+        dispatch(buyActions.create({name: userInfo.name, items: itemsCart, total: totalPrice, email:store[0].email, storeId:store[0]._id}) as any)
+
+        setqr(true);
+    }
+    
+
 
 
     useEffect(() => {
@@ -209,7 +225,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             {openBooking && (
 
                 <div className="menu-screen" >
-                        <h3>Reservas disponibles</h3>
+                    <h3>Reservas disponibles</h3>
                     {!loading && store[0].chairs.map((menu: any) => (
                         <div key={menu._id} className="menu-screen-item" >
 
@@ -222,7 +238,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 </div>
                             </div>
                             <div className="amount">
-                                
+
                             </div>
                         </div>
                     ))}
@@ -235,38 +251,38 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <div className="menu-screen" >
                     <div className='menu-cat'>
 
-                    {!loading && store[0].menus.map((menu: any) => (
-                        <div onClick={() => setMenuCat(menu.title)}>{menu.title}</div>
-                    ))}
+                        {!loading && store[0].menus.map((menu: any) => (
+                            <div onClick={() => setMenuCat(menu.title)}>{menu.title}</div>
+                        ))}
                     </div>
 
                     {!loading && store[0].menus.filter((menu: any) => menu.title.includes(menuCat))
-                    .map((menu: any) => (
-                        <div key={menu._id} className="menu-screen-item" >
-                            <h3>{menu.title}</h3>
-                            {menu.items.map((item: any) => (
-                                <>
-                                    <div className='screen-item-cog'>
-                                        <img src={item.image} alt={item.name} />
-                                        <div>
-                                            <span className='item-name'>{item.name}</span>
-                                            <p>{item.description}</p>
-                                            <div className="price">
-                                            <span>{DivisaFormater(item.price)}</span>
+                        .map((menu: any) => (
+                            <div key={menu._id} className="menu-screen-item" >
+                                <h3>{menu.title}</h3>
+                                {menu.items.map((item: any) => (
+                                    <>
+                                        <div className='screen-item-cog'>
+                                            <img src={item.image} alt={item.name} />
+                                            <div>
+                                                <span className='item-name'>{item.name}</span>
+                                                <p>{item.description}</p>
+                                                <div className="price">
+                                                    <span>{DivisaFormater(item.price)}</span>
 
-                                            <div className="amount">
+                                                    <div className="amount">
 
-                                                <button onClick={() => setCart(item, "minus")}>-</button>
-                                                <p className="input">{itemsCart.filter((c:any) => c.product == item._id)[0]?.qty? itemsCart.filter((c:any) => c.product == item._id)[0]?.qty : 0 }</p>
-                                                <button onClick={() => setCart(item, "add")}>+</button>
-                                            </div>
+                                                        <button onClick={() => setCart(item, "minus")}>-</button>
+                                                        <p className="input">{itemsCart.filter((c: any) => c.product == item._id)[0]?.qty ? itemsCart.filter((c: any) => c.product == item._id)[0]?.qty : 0}</p>
+                                                        <button onClick={() => setCart(item, "add")}>+</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </>
-                            ))}
-                        </div>
-                    ))}
+                                    </>
+                                ))}
+                            </div>
+                        ))}
 
 
                 </div>
@@ -277,7 +293,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <div className="footer-price">
                     <button onClick={() => setOpenFooter(true)} className='order-btn'><i className='bx bxs-chevron-up'></i></button>
                     <h3>{DivisaFormater(totalPrice)}</h3>
-                    <button className='pay-btn' onClick={() => setqr(true)}>Pagar</button>
+                    <button className='pay-btn' onClick={() => buyHandler()}>Pagar</button>
                 </div>
             )}
 
@@ -287,34 +303,34 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <h2>Total: {DivisaFormater(totalPrice)}</h2>
                 <div className="cart-content">
 
-                {itemsCart.map((item:any) => (
-                    <div className="cart-item">
-                        <div className="cart-header">
-                        <h4>{item.name} <span>{item.qty}</span></h4>
-                            <p>{item.price}</p>
-                        </div>
-                        <p>{item.description}</p>
-                        <div className="amount">
+                    {itemsCart.map((item: any) => (
+                        <div className="cart-item">
+                            <div className="cart-header">
+                                <h4>{item.name} <span>{item.qty}</span></h4>
+                                <p>{DivisaFormater(item.price)}</p>
+                            </div>
+                            <p>{item.description}</p>
+                            <div className="amount">
 
-<button onClick={() => setCart({_id: item.product, ...item}, "minus")}>-</button>
-<p className="input">{itemsCart.filter((c:any) => c.product == item.product)[0]?.qty? itemsCart.filter((c:any) => c.product == item.product)[0]?.qty : 0 }</p>
-<button onClick={() => setCart({_id: item.product, ...item}, "add")}>+</button>
-</div>
-                    </div>
-                ))}
+                                <button onClick={() => setCart({ _id: item.product, ...item }, "minus")}>-</button>
+                                <p className="input">{itemsCart.filter((c: any) => c.product == item.product)[0]?.qty ? itemsCart.filter((c: any) => c.product == item.product)[0]?.qty : 0}</p>
+                                <button onClick={() => setCart({ _id: item.product, ...item }, "add")}>+</button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
 
             </div>
-            
+
             {qr && (
 
-            <div className="qr-screen">
-                <h3>Metodos de pago </h3>
-                {/* <QRCode value={`${price}`} /> */}
-                <button className="btn-pay">Particoins</button>
-                <Link to="/qr" className="btn-pay-link">Efectivo</Link>
-                <form action="https://real-vision-api.herokuapp.com/mercadopago" method="POST" encType='multipart/form-data'>
-                <input
+                <div className="qr-screen">
+                    <h3>Metodos de pago </h3>
+                    {/* <QRCode value={`${price}`} /> */}
+                    <button className="btn-pay">Particoins</button>
+                    <Link to="/qr" className="btn-pay-link">Efectivo</Link>
+                    <form action="https://real-vision-api.herokuapp.com/mercadopago" method="POST" encType='multipart/form-data'>
+                        <input
                             type="hidden"
                             name="title"
                             value="Partiaf Products"
@@ -322,10 +338,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         <input type="hidden" name="price" value={Number(totalPrice)} />
                         <input type='submit' className='placeholder-btn' value="MercadoPago" />
 
-                </form>
+                    </form>
 
-                {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
-            </div>
+                    {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
+                </div>
             )}
 
             <BottonMenu />

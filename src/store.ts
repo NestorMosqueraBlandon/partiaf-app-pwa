@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux"
 import thunk from "redux-thunk";
+import buyReducer from "./reducers/buyRedcuers";
 import { cartReducer } from "./reducers/cartReducers";
 import storeReducer from "./reducers/storeReducers";
 import { userSigninReducer, userSignupReducer } from "./reducers/userReducers"
@@ -22,6 +23,9 @@ const reducer = combineReducers({
     userSignup: userSignupReducer,
 
     storeOne: storeReducer.oneReducer,
+
+    createBuy: buyReducer.createReducer,
+
 
     cart: cartReducer
 

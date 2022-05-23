@@ -47,7 +47,7 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
     })
   },[hasStores])
 
-  console.log(category)
+  const [search, setSearch] = useState("");
 
   return (
     <>
@@ -56,7 +56,7 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
 
       <div className="search-form">
       <i className='bx bx-search' ></i>
-      <input type="text" className='search-input' placeholder='A donde quires ir?' />
+      <input type="text" className='search-input' value={search} onChange={(e:any) => setSearch(e.target.value)} placeholder='A donde quires ir?' />
       </div>
       <div className="store-categories">
         <button onClick={() => setCategory('')}>Todo</button>
@@ -73,7 +73,8 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (props) 
 
       {hasStores? (
       <>
-      {data?.filter(({type}) => type?.includes(category))
+      {data?.filter(({name}) => name?.toLowerCase().includes(search.toLowerCase()))
+      .filter(({type}) => type?.includes(category))
       .map(({_id, images, name,address,type}, index) => (
         <HomeCard key={index} id={_id} name={name} images={images} address={address} type={type} />
       ))}

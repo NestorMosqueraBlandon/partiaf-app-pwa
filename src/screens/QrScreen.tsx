@@ -18,6 +18,7 @@ export const QrScreen: React.FunctionComponent = (props) => {
     <>
             <div className='background data-container'>
                 <Header />
+                <Link to="/" className='back-btn-link' ><i className='bx bx-left-arrow-alt' ></i> </Link>
 
                 <div className='qr-screen'>
 
