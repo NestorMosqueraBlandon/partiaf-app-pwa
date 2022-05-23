@@ -3,7 +3,7 @@ import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import buyActions from '../actions/buyActions'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 import storeActions from '../actions/storeActions'
 import BottonMenu from '../components/BottonMenu'
 import { Header } from '../components/header/Header'
@@ -71,9 +71,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 totalPrice = itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0)
                 setPrice(totalPrice)
                 if (itemsCart[index].qty === 0) {
-                    console.log(itemsCart[index])
-                    console.log("MINUS QTY", itemsCart[index].qty)
-                    itemsCart.splice(index, 1)
+                    console.log("item idnex", itemsCart[index])
+                    dispatch(removeFromCart(itemsCart[index].product) as any)
                 }
             }
 
