@@ -39,7 +39,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const setCart = async (product: any, operator: any) => {
         let totalPrice = 0
         if (operator == "add") {
-        setqr(false);
+            setqr(false);
             console.log(itemsCart)
             const index = itemsCart.findIndex((cart: any) => cart.product == product._id);
             if (index >= 0) {
@@ -81,7 +81,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         }
     }
 
-    let totalPrice = itemsCart.length > 0? itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0) : 0
+    let totalPrice = itemsCart.length > 0 ? itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0) : 0
 
 
     console.log(totalPrice);
@@ -119,10 +119,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <button className='back-btn' onClick={() => setOpenBooking(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
             )}
 
-{qr && (
+            {qr && (
 
-<button className='back-btn' onClick={() => setqr(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
-)}
+                <button className='back-btn' onClick={() => setqr(false)}><i className='bx bx-left-arrow-alt' ></i> </button>
+            )}
 
             <Link to="/" className='back-btn-link' ><i className='bx bx-left-arrow-alt' ></i> </Link>
 
@@ -138,67 +138,12 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 </div>
                             </div>
 
-                            {/* <details>
-                                <summary><span><i className='bx bx-no-entry' ></i> ENTRADAS</span>  <i className='bx bx-plus' ></i> </summary>
-                                {store[0].covers.map((chair: any) => (
-                                    <div key={chair._id} className="menu-item cover" >
-                                        <div className='cover-header'>
-                                            <h3>{chair.type}</h3>
-                                            <span>{DivisaFormater(chair.price)}</span>
-                                        </div>
-                                        <div className="cover-amount">
-                                            <h3>Cantidad</h3>
-                                            <div className="cover-buttons">
-                                                <button>-</button>
-                                                <input type="text" value={1} />
-                                                <button>+</button>
-                                            </div>
-                                        </div>
-                                        <div className="cover-total">
-                                            <h3>Total</h3>
-                                            <p>{DivisaFormater(chair.price)}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </details> */}
-
-                            {/* <details>
-                                <summary><span><i className='bx bxs-bookmark' ></i> RESERVAS</span>  <i className='bx bx-plus' ></i> </summary>
-                                <div>
-                                    {store[0].chairs.map((chair: any) => (
-                                        <div key={chair._id} className="menu-item" >
-                                            <h3>{chair.type}</h3>
-                                            <span>{chair.price}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </details> */}
                             <div className="buttons-item">
                                 <button onClick={() => setOpenCover(true)}><i className='bx bx-no-entry' ></i> COVERS</button>
                                 <button onClick={() => setOpenBooking(true)}><i className='bx bxs-bookmark' ></i> RESERVAS</button>
                                 <button onClick={() => setOpenMenu(true)}><i className='bx bxs-food-menu' ></i> MENU</button>
                             </div>
-                            {/* <details>
-                                <button><span><i className='bx bxs-food-menu' ></i> MENU </span> <i className='bx bx-plus' ></i></button>
-                                <div>
-                                    {store[0].menus.map((menu: any) => (
-                                        <div key={menu._id} className="menu-item" >
-                                            <h3>{menu.title}</h3>
-                                            {menu.items.map((item: any) => (
-                                                <>
-                                                    <img src={item.image} alt={item.name} />
-                                                    <div>
-                                                        <span>{item.name}</span>
-                                                        <span>{DivisaFormater(item.price)}</span>
-                                                    </div>
-                                                </>
 
-                                            ))}
-
-                                        </div>
-                                    ))}
-                                </div>
-                            </details> */}
                             <div className="contact-new">
                                 <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
                                 <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
@@ -267,7 +212,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 {menu.items.map((item: any) => (
 
                                     <div key={item._id} className='screen-item-cog'>
-                                        <img src={item.image} alt={item.name} />
+                                        <div className="img-container">
+                                            <img src={item.image} alt={item.name} />
+                                        </div>
                                         <div>
                                             <span className='item-name'>{item.name}</span>
                                             <p>{item.description}</p>
@@ -298,15 +245,15 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     <button onClick={() => setOpenFooter(true)} className='order-btn'><i className='bx bxs-chevron-up'></i></button>
                     <h3>{DivisaFormater(totalPrice)}</h3>
 
-                    {totalPrice > 0 && qr == false  && (
+                    {totalPrice > 0 && qr == false && (
                         <button className='pay-btn' onClick={() => buyHandler()}>Pagar</button>
                     )}
 
-{qr == true  && (
+                    {qr == true && totalPrice > 0 && (
                         <button className='pay-btn-none'>Pagar</button>
                     )}
 
-                    {totalPrice <= 0 && qr == true  && (
+                    {(totalPrice <= 0) && (
                         <button className='pay-btn-none'>Pagar</button>
                     )}
                 </div>
@@ -337,23 +284,23 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     ))}
                 </div>
 
-                {totalPrice > 0&& (
-                <button className='pay-btn wt-90' onClick={() => buyHandler()}>Pagar</button>
+                {totalPrice > 0 && (
+                    <button className='pay-btn wt-90' onClick={() => buyHandler()}>Pagar</button>
 
-                    )}
+                )}
 
-                    {(totalPrice <= 0 && qr == true ) && (
-                <button className='pay-btn-none wt-90' >Pagar</button>
-                    )}
+                {(totalPrice <= 0 && qr == true) && (
+                    <button className='pay-btn-none wt-90' >Pagar</button>
+                )}
 
 
             </div>
 
 
 
-     
 
-                {totalPrice > 0 && qr == true ? (
+
+            {totalPrice > 0 && qr == true &&  (
 
                 <div className="qr-screen">
                     <h3>Metodos de pago </h3>
@@ -373,11 +320,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                     {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
                 </div>
-                ): (
-                    <div>
-                        <h2>El carrito esta vacio <button onClick={() => setqr(false)}>Volver</button></h2>
-                    </div>
-                )}
+            )}
 
 
             <BottonMenu />

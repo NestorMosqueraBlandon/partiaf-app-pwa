@@ -800,11 +800,11 @@ border: 1px solid rgba(0, 0, 0, .05);
 
 .menu-screen{
   position: relative;
-  background-color: #FFF;
-  height: 90vh;
+  /* background-color: #FFF; */
+  /* height: 90vh; */
   z-index: 99;
   padding-top: 6rem;
-  padding-bottom: 15rem;
+  /* padding-bottom: 1rem; */
 }
 
 .menu-screen img{
@@ -1137,11 +1137,15 @@ border: 1px solid rgba(0, 0, 0, .05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, .03);
 }
 
-.screen-item-cog img{
-  height: 100px;
-  /* object-fit: cover; */
-  /* width: 100px; */
-  border-radius: 0;
+.screen-item-cog .img-container{
+  border-radius: 5rem;
+  overflow: hidden;
+  /* background-color: #333; */
+  
+}
+
+.screen-item-cog .img-container img{
+  object-fit: cover; 
 }
 
 .amount{
