@@ -32,6 +32,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [price, setPrice] = useState(0);
     const dispatch = useDispatch();
 
+    const [people, setPeople] = useState(0)
+    const [day, setDay] = useState("")
+    const [hour, setHour] = useState("")
+
 
     const [qr, setqr] = useState(false);
 
@@ -170,7 +174,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             )}
             {openBooking && (
 
-                <div className="menu-screen" >
+                <div className="menu-screen min-he" >
                     <h3>Reservas disponibles</h3>
                     {!loading && store[0].chairs.map((menu: any) => (
                         <div key={menu._id} className="menu-screen-item" >
@@ -295,8 +299,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
 
             </div>
-
-
 
 
 
