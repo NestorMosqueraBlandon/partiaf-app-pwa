@@ -299,13 +299,13 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         <button className={hour == "1:30 pm"? "active" : ""} onClick={() => setHour("1:30 pm")} >
                             <span>1:30 pm</span>
                         </button>
-                        <button className={hour == "2:00 pm"? "active" : ""} onClick={() => setHour("28 Mayo")} >
+                        <button className={hour == "2:00 pm"? "active" : ""} onClick={() => setHour("2:00 pm")} >
                             <span>2:00 pm</span>
                         </button>
-                        <button className={hour == "2:30 pm"? "active" : ""} onClick={() => setHour("29 Mayo")} >
+                        <button className={hour == "2:30 pm"? "active" : ""} onClick={() => setHour("2:30 pm")} >
                             <span>2:30 pm</span>
                         </button>
-                        <button className={hour == "3:00 pm"? "active" : ""} onClick={() => setHour("30 Mayo")} >
+                        <button className={hour == "3:00 pm"? "active" : ""} onClick={() => setHour("3:00 pm")} >
                             <span>3:00 pm</span>
                         </button>
 
