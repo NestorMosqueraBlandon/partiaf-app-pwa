@@ -2,16 +2,23 @@ import React, { useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
+import bookingActions from '../actions/bookingActions'
 import buyActions from '../actions/buyActions'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import storeActions from '../actions/storeActions'
 import BottonMenu from '../components/BottonMenu'
 import { Header } from '../components/header/Header'
 import { DivisaFormater } from '../utils/divisaFormater'
+
+import swal from 'sweetalert'
+
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
     const { loading, error, data: store } = storeOne;
+
+    const createBooking = useSelector((state: any) => state.createBooking);
+    const { loading:loadingCreate, error:errorCreate, success } = createBooking;
 
     console.log(store)
     const userSignin = useSelector((state: any) => state.userSignin);
@@ -35,6 +42,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const [people, setPeople] = useState(0)
     const [day, setDay] = useState("")
     const [hour, setHour] = useState("")
+    const [booking, setBooking] = useState("")
 
 
     const [qr, setqr] = useState(false);
@@ -98,9 +106,35 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         setOpenFooter(false);
     }
 
+    const bookingHandler = () => {
+
+        if(day == "" || hour ==""){
+            if(!success){
+                swal(
+                    "Opps!",
+                    "Ha habido un error con tu reserva, revisa los campos!",
+                    "warning"
+                  );
+            }
+            return;
+        }
+        dispatch(bookingActions.create( {day:day, hour: hour, peoples: people, total: 30000, type: booking, email: store[0].email, storeId: store[0]._id}) as any)
+    
+        if(success){
+            swal(
+                "Excelente!",
+                "Tu reserva ha sido aceptada!",
+                "success"
+              );
+        }
+
+    }
+
     useEffect(() => {
         dispatch(storeActions.one(id) as any);
     }, [dispatch])
+
+
 
     if (!loading) {
         console.log(error)
@@ -176,8 +210,12 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                 <div className="menu-screen min-he" >
                     <h3>Reservas disponibles</h3>
-                    {!loading && store[0].chairs.map((menu: any) => (
-                        <div key={menu._id} className="menu-screen-item" >
+
+                    <div className="booking-container">
+
+                    {!loading && store[0].chairs.filter((chair:any) => chair.amount > 0)
+                    .map((menu: any) => (
+                        <button key={menu._id} className={booking == menu.type? "active" : ""} onClick={() => setBooking(menu.type)} >
 
                             <div className='screen-item-cog-chair'>
                                 <div>
@@ -187,12 +225,96 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                     <span className='limit'>{DivisaFormater(menu.price)}</span>
                                 </div>
                             </div>
-                            <div className="amount">
-
-                            </div>
-                        </div>
+                          
+                        </button>
                     ))}
+                    </div>
 
+            <div className='booking-screen '>
+                <div className="section-booking">
+                    <h2><i className='bx bx-user-plus'></i> Cuantas personas?</h2>
+
+                    <div className="people-container">
+                        <button className={people == 1? "active" : ""} onClick={() => setPeople(1)} >1</button>
+                        <button className={people == 2? "active" : ""} onClick={() => setPeople(2)} >2</button>
+                        <button className={people == 3? "active" : ""} onClick={() => setPeople(3)} >3</button>
+                        <button className={people == 4? "active" : ""} onClick={() => setPeople(4)} >4</button>
+                        <button className={people == 5? "active" : ""} onClick={() => setPeople(5)} >5</button>
+                        <button className={people == 6? "active" : ""} onClick={() => setPeople(6)} >6</button>
+                        <button className={people == 7? "active" : ""} onClick={() => setPeople(7)} >7</button>
+                        <button className={people == 8? "active" : ""} onClick={() => setPeople(8)} >8</button>
+                        <button className={people == 9? "active" : ""} onClick={() => setPeople(9)} >9</button>
+
+                    </div>
+                </div>
+
+                <div className="section-booking">
+                    <h2><i className='bx bx-calendar'></i> Que dia?</h2>
+                    <div className="day-container">
+                        <button className={day == "24 Mayo"? "active" : ""} onClick={() => setDay("24 Mayo")} >
+                            <span>Hoy</span>
+                            <span>24 Mayo</span>
+                        </button>
+                        <button className={day == "25 Mayo"? "active" : ""} onClick={() => setDay("25 Mayo")} >
+                            <span>Miercoles</span>
+                            <span>25 Mayo</span>
+                        </button>
+                        <button className={day == "26 Mayo"? "active" : ""} onClick={() => setDay("26 Mayo")} >
+                            <span>Jueves</span>
+                            <span>26 Mayo</span>
+                        </button>
+                        <button className={day == "27 Mayo"? "active" : ""} onClick={() => setDay("27 Mayo")} >
+                            <span>Viernes</span>
+                            <span>27 Mayo</span>
+                        </button>
+                        <button className={day == "28 Mayo"? "active" : ""} onClick={() => setDay("28 Mayo")} >
+                            <span>Sabado</span>
+                            <span>28 Mayo</span>
+                        </button>
+                        <button className={day == "29 Mayo"? "active" : ""} onClick={() => setDay("29 Mayo")} >
+                            <span>Domingo</span>
+                            <span>29 Mayo</span>
+                        </button>
+                        <button className={day == "30 Mayo"? "active" : ""} onClick={() => setDay("30 Mayo")} >
+                            <span>Lunes</span>
+                            <span>30 Mayo</span>
+                        </button>
+
+
+                    </div>
+                </div>
+
+                <div className="section-booking">
+                    <h2><i className='bx bx-time-five' ></i> Que hora?</h2>
+                    <div className="day-container">
+                        <button className={hour == "12:00 pm"? "active" : ""} onClick={() => setHour("12:00 pm")} >
+                            <span>12:00 pm</span>
+                        </button>
+                        <button className={hour == "12:30 pm"? "active" : ""} onClick={() => setHour("12:30 pm")} >
+                            <span>12:30 pm</span>
+                        </button>
+                        <button className={hour == "1:00 pm"? "active" : ""} onClick={() => setHour("1:00 pm")} >
+                            <span>1:00 pm</span>
+                        </button>
+                        <button className={hour == "1:30 pm"? "active" : ""} onClick={() => setHour("1:30 pm")} >
+                            <span>1:30 pm</span>
+                        </button>
+                        <button className={hour == "2:00 pm"? "active" : ""} onClick={() => setHour("28 Mayo")} >
+                            <span>2:00 pm</span>
+                        </button>
+                        <button className={hour == "2:30 pm"? "active" : ""} onClick={() => setHour("29 Mayo")} >
+                            <span>2:30 pm</span>
+                        </button>
+                        <button className={hour == "3:00 pm"? "active" : ""} onClick={() => setHour("30 Mayo")} >
+                            <span>3:00 pm</span>
+                        </button>
+
+
+                    </div>
+                </div>  
+                <button  onClick={() => bookingHandler()} className='btn-primary'>Reservar</button>
+
+            </div>
 
                 </div>
             )}
@@ -299,6 +421,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
 
             </div>
+
 
 
 

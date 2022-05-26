@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux"
 import thunk from "redux-thunk";
+import bookingReducer from "./reducers/bookingRedcuers";
 import buyReducer from "./reducers/buyRedcuers";
 import { cartReducer } from "./reducers/cartReducers";
 import storeReducer from "./reducers/storeReducers";
@@ -25,6 +26,7 @@ const reducer = combineReducers({
     storeOne: storeReducer.oneReducer,
 
     createBuy: buyReducer.createReducer,
+    createBooking: bookingReducer.createReducer,
 
 
     cart: cartReducer
