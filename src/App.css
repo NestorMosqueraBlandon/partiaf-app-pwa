@@ -1406,6 +1406,47 @@ border: 1px solid rgba(0, 0, 0, .05);
   gap: 2rem;
 }
 
+.cover-container{
+  display: flex;
+  overflow: auto;
+  white-space: nowrap;
+  gap: 2rem;
+}
+
+.cover-container button{
+  padding: 1rem;
+  height: 15rem;
+  width: 25rem;
+  overflow: hidden;
+}
+
+.cover-container .active{
+  color: #FDBD00;
+  position: relative;
+}
+
+.cover-container-wrap h2{
+  font-size: 1.4rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-left: 2.5rem;
+}
+
+.cover-container-wrap > div{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-container-wrap button{
+  padding: 1rem;
+  height: 15rem;
+  width: 15rem;
+  overflow: hidden;
+}
+
 .booking-container button{
   padding: 0;
   border: 1px solid rgba(0, 0, 0, .1) !important;
@@ -1435,4 +1476,10 @@ border: 1px solid rgba(0, 0, 0, .05);
   background-color: #FDBD00;
   color: #FFF;
   font-size: 1.6rem;
+}
+
+.section-cover h2{
+  font-size: 1.4rem;
+  margin-top: 3rem;
+  margin-left: 2rem;
 }
