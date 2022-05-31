@@ -9,8 +9,10 @@ import storeActions from '../actions/storeActions'
 import BottonMenu from '../components/BottonMenu'
 import { Header } from '../components/header/Header'
 import { DivisaFormater } from '../utils/divisaFormater'
-
+import TimeAgo from 'react-timeago'
 import swal from 'sweetalert'
+import {Swiper, SwiperSlide} from 'swiper/react'
+import 'swiper/css'
 
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
@@ -20,7 +22,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const createBooking = useSelector((state: any) => state.createBooking);
     const { loading: loadingCreate, error: errorCreate, success } = createBooking;
 
-    console.log(store)
     const userSignin = useSelector((state: any) => state.userSignin);
     const { userInfo } = userSignin;
 
@@ -46,8 +47,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const [amountCover, setAmountCover] = useState("")
 
+    const [openCommnet, setOpenCommentModal] = useState(true)
 
-
+    console.log(openCommnet)
     const [qr, setqr] = useState(false);
 
     const [cartItem, setCartItem] = useState<any>([])
@@ -98,10 +100,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     let totalPrice = itemsCart.length > 0 ? itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0) : 0
 
-
-    console.log(totalPrice);
-    console.log(qr)
-
     const buyHandler = () => {
         dispatch(buyActions.create({ name: userInfo.name, items: itemsCart, total: totalPrice, email: store[0].email, storeId: store[0]._id }) as any)
 
@@ -132,16 +130,26 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         }
     }
 
+
+
+
+    const [comments, setCommnets] = useState<any[]>([]);
+
+    const [commentText, setCommentText] = useState('');
+
+    const addCommnet = () => {
+        setCommnets([...comments, {text: commentText, photo: userInfo.image, date: Date.now()}])
+        setOpenCommentModal(false)
+        setCommentText('')
+    }
+
+    console.log(comments)
+
+
     useEffect(() => {
         dispatch(storeActions.one(id) as any);
     }, [dispatch])
 
-
-
-    if (!loading) {
-        console.log(error)
-        // console.log(store[0]?.chairs)
-    }
     return (
         <div>
             <Header />
@@ -169,11 +177,28 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             {!loading && (
                 <>
                     <div className='store-container'>
-                        <img className='store-image' src={store[0].images[0]} alt="" />
+                        <Swiper
+                              spaceBetween={50}
+                              slidesPerView={1}
+                              onSlideChange={() => console.log('slide change')}
+                              onSwiper={(swiper) => console.log(swiper)}
+                              >
+                            {store[0].images.map((image:any) => (
+                                
+                                <SwiperSlide>
+                            <img className='store-image' src={image} alt="iamgen" />
+                            </SwiperSlide>
+                            ))}
+                            
+                        </Swiper>
                         <div className="store-info">
                             <div className="store-info-header">
                                 <h2>{store[0].name}</h2>
                                 <div>
+                                <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i></span> </a>
+                                <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i></a>
+                                <a href="https://www.google.com/maps/place/Jumbo+Calle+80/@4.6909253,-74.0839133,19.62z/data=!4m5!3m4!1s0x8e3f9b2177059375:0x34d1a90a38fbc99!8m2!3d4.6909593!4d-74.0841774"><i className='bx bxs-location-plus'></i> </a>
+                                
                                     <button><i className='bx bx-heart'></i></button>
                                 </div>
                             </div>
@@ -184,11 +209,26 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 <button onClick={() => setOpenMenu(true)}><i className='bx bxs-food-menu' ></i> MENU</button>
                             </div>
 
-                            <div className="contact-new">
-                                <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i> Llamada</span> </a>
-                                <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i> Whatsapp</a>
-                                <Link to="/"><i className='bx bxs-location-plus'></i> Ubicacion</Link>
+                            <div className="comments">
+                                <div className="comments-header">
+                                <h3>Comentarios <span>{comments.length}</span> </h3> 
+                                <button onClick={() => setOpenCommentModal(true)}><i className='bx bx-comment-detail'></i></button>
+                                </div>
 
+                                <div className="comments-list">
+                                    {comments.map(comment => (
+                                        <div className="comment-card">
+                                            <div>
+                                                <img src={comment.photo} alt="" />
+                                                </div>
+                                                <span>
+                                                    <p>{comment.text}</p>
+                                                    <p><TimeAgo date={comment.date}/></p>
+                                                </span>
+
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
 
                         </div>
@@ -489,6 +529,23 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
                 </div>
             )}
+
+                {openCommnet &&(
+
+                <div className="comment-modal">
+                    <div className='modal'>
+                        <div className="modal-header">
+                        <h3>Comentario</h3>
+                        <button onClick={() => setOpenCommentModal(false)}><i className='bx bx-x'></i></button>
+
+                        </div>
+
+                    <input type="text" placeholder='Escribe un comentario' value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+                    <button className='btn btn-primary' onClick={() => addCommnet()}>Comentar</button>
+                    </div>
+
+                </div>
+                ) }
 
 
             <BottonMenu />
