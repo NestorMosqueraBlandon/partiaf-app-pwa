@@ -47,7 +47,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const [amountCover, setAmountCover] = useState("")
 
-    const [openCommnet, setOpenCommentModal] = useState(true)
+    const [openCommnet, setOpenCommentModal] = useState(false)
 
     console.log(openCommnet)
     const [qr, setqr] = useState(false);
