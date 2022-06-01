@@ -11,7 +11,7 @@ import { Header } from '../components/header/Header'
 import { DivisaFormater } from '../utils/divisaFormater'
 import TimeAgo from 'react-timeago'
 import swal from 'sweetalert'
-import {Swiper, SwiperSlide} from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import commentActions from '../actions/commentActions'
 
@@ -21,7 +21,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     const { loading, error, data: store } = storeOne;
 
     const createComment = useSelector((state: any) => state.createComment);
-    const { loading:loadingCreateComment, error: errorCreateComment, success:successComment } = createComment;
+    const { loading: loadingCreateComment, error: errorCreateComment, success: successComment } = createComment;
 
     const commentList = useSelector((state: any) => state.commentList);
     const { loading: loadingComments, error: errorComments, data: comments } = commentList;
@@ -61,19 +61,24 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const [cartItem, setCartItem] = useState<any>([])
     const setCart = async (product: any, operator: any) => {
+
         let totalPrice = 0
         if (operator == "add") {
             setqr(false);
             console.log(itemsCart)
             const index = itemsCart.findIndex((cart: any) => cart.product == product._id);
             if (index >= 0) {
-                console.log(itemsCart[index].qty++)
-                const newQty = itemsCart[index].qty++;
-                // setCartItem(cartItem);
-                dispatch(addToCart(product, newQty) as any);
+                // console.log(itemsCart[index].qty++)
 
-                totalPrice = itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0)
-                setPrice(totalPrice)
+                if (itemsCart[index].qty <= product.amount) {
+
+                    const newQty = itemsCart[index].qty++;
+                    // setCartItem(cartItem);
+                    dispatch(addToCart(product, newQty) as any);
+
+                    totalPrice = itemsCart.reduce((a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty), 0)
+                    setPrice(totalPrice)
+                }
             } else {
                 dispatch(addToCart(product, 1) as any);
                 // setCartItem([...cartItem, {...product, qty: 1}]);
@@ -146,7 +151,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const addCommnet = () => {
 
-        dispatch(commentActions.create({email: store[0].email, storeId: store[0]._id, text: commentText, photo: userInfo.image}) as any)
+        dispatch(commentActions.create({ email: store[0].email, storeId: store[0]._id, text: commentText, photo: userInfo.image }) as any)
         // setCommnets([...comments, {text: commentText, photo: userInfo.image, date: Date.now()}])
         setOpenCommentModal(false)
         setCommentText('')
@@ -156,7 +161,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
 
     useEffect(() => {
-        
+
         dispatch(storeActions.one(id) as any);
 
     }, [dispatch, successComment])
@@ -189,27 +194,27 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <>
                     <div className='store-container'>
                         <Swiper
-                              spaceBetween={50}
-                              slidesPerView={1}
-                              onSlideChange={() => console.log('slide change')}
-                              onSwiper={(swiper) => console.log(swiper)}
-                              >
-                            {store[0].images.map((image:any) => (
-                                
+                            spaceBetween={50}
+                            slidesPerView={1}
+                            onSlideChange={() => console.log('slide change')}
+                            onSwiper={(swiper) => console.log(swiper)}
+                        >
+                            {store[0].images.map((image: any) => (
+
                                 <SwiperSlide key={image}>
-                            <img className='store-image' src={image} alt="iamgen" />
-                            </SwiperSlide>
+                                    <img className='store-image' src={image} alt="iamgen" />
+                                </SwiperSlide>
                             ))}
-                            
+
                         </Swiper>
                         <div className="store-info">
                             <div className="store-info-header">
                                 <h2>{store[0].name}</h2>
                                 <div>
-                                <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i></span> </a>
-                                <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i></a>
-                                <a href="https://www.google.com/maps/place/Jumbo+Calle+80/@4.6909253,-74.0839133,19.62z/data=!4m5!3m4!1s0x8e3f9b2177059375:0x34d1a90a38fbc99!8m2!3d4.6909593!4d-74.0841774"><i className='bx bxs-location-plus'></i> </a>
-                                
+                                    <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i></span> </a>
+                                    <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i></a>
+                                    <a href="https://www.google.com/maps/place/Jumbo+Calle+80/@4.6909253,-74.0839133,19.62z/data=!4m5!3m4!1s0x8e3f9b2177059375:0x34d1a90a38fbc99!8m2!3d4.6909593!4d-74.0841774"><i className='bx bxs-location-plus'></i> </a>
+
                                     <button><i className='bx bx-heart'></i></button>
                                 </div>
                             </div>
@@ -222,8 +227,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                             <div className="comments">
                                 <div className="comments-header">
-                                <h3>Comentarios <span>{store[0].comments.length}</span> </h3> 
-                                <button onClick={() => setOpenCommentModal(true)}><i className='bx bx-comment-detail'></i></button>
+                                    <h3>Comentarios <span>{store[0].comments.length}</span> </h3>
+                                    <button onClick={() => setOpenCommentModal(true)}><i className='bx bx-comment-detail'></i></button>
                                 </div>
 
                                 <div className="comments-list">
@@ -231,11 +236,11 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                         <div className="comment-card" key={comment._id}>
                                             <div>
                                                 <img src={comment.photo} alt="" />
-                                                </div>
-                                                <span>
-                                                    <p>{comment.text}</p>
-                                                    <p><TimeAgo date={comment.date}/></p>
-                                                </span>
+                                            </div>
+                                            <span>
+                                                <p>{comment.text}</p>
+                                                <p><TimeAgo date={comment.date} /></p>
+                                            </span>
 
                                         </div>
                                     ))}
@@ -286,16 +291,16 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         <h2>Eventos similares</h2>
                         <div>
 
-                        {!loading && store[0].covers.map((cover: any) => (
-                            <button key={cover._id} className="menu-screen-item" >
-                                <h3>{cover.type}</h3>
-                                <p>{cover.description}</p>
-                                <p>{cover.price}</p>
-                                <p>{cover.hour}</p>
-                                <p>{cover.date}</p>
+                            {!loading && store[0].covers.map((cover: any) => (
+                                <button key={cover._id} className="menu-screen-item" >
+                                    <h3>{cover.type}</h3>
+                                    <p>{cover.description}</p>
+                                    <p>{cover.price}</p>
+                                    <p>{cover.hour}</p>
+                                    <p>{cover.date}</p>
 
-                            </button>
-                        ))}
+                                </button>
+                            ))}
                         </div>
 
                     </div>
@@ -417,7 +422,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             )}
             {openMenu && (
 
-                <div className="menu-screen" >
+                <div className="menu-screen min-he" >
                     <div className='menu-cat'>
                         <div onClick={() => setMenuCat("")}>Todos</div>
 
@@ -541,22 +546,22 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 </div>
             )}
 
-                {openCommnet &&(
+            {openCommnet && (
 
                 <div className="comment-modal">
                     <div className='modal'>
                         <div className="modal-header">
-                        <h3>Comentario</h3>
-                        <button onClick={() => setOpenCommentModal(false)}><i className='bx bx-x'></i></button>
+                            <h3>Comentario</h3>
+                            <button onClick={() => setOpenCommentModal(false)}><i className='bx bx-x'></i></button>
 
                         </div>
 
-                    <input type="text" placeholder='Escribe un comentario' value={commentText} onChange={(e) => setCommentText(e.target.value)} />
-                    <button className='btn btn-primary' onClick={() => addCommnet()}>Comentar</button>
+                        <input type="text" placeholder='Escribe un comentario' value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+                        <button className='btn btn-primary' onClick={() => addCommnet()}>Comentar</button>
                     </div>
 
                 </div>
-                ) }
+            )}
 
 
             <BottonMenu />

@@ -9,6 +9,9 @@ export const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     
       <img src="/img/logo/logo-partiaf-secondary.svg" alt="Logo" />
       <span>
+      <Link to="/qr">
+        <i className='bx bx-qr-scan' ></i>
+        </Link>
         <button>
           <i className='bx bx-chat' ></i>
         </button>

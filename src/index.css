@@ -33,3 +33,9 @@ a.card-home{
   padding: 0;text-align: left;
   color: #212121;
 }
+
+.header span a{
+  font-size: 2rem;
+  color: #212121;
+  margin-right: 1rem;
+}
