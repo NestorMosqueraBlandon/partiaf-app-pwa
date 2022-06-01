@@ -13,11 +13,18 @@ import TimeAgo from 'react-timeago'
 import swal from 'sweetalert'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
+import commentActions from '../actions/commentActions'
 
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
     const { loading, error, data: store } = storeOne;
+
+    const createComment = useSelector((state: any) => state.createComment);
+    const { loading:loadingCreateComment, error: errorCreateComment, success:successComment } = createComment;
+
+    const commentList = useSelector((state: any) => state.commentList);
+    const { loading: loadingComments, error: errorComments, data: comments } = commentList;
 
     const createBooking = useSelector((state: any) => state.createBooking);
     const { loading: loadingCreate, error: errorCreate, success } = createBooking;
@@ -133,12 +140,14 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
 
 
-    const [comments, setCommnets] = useState<any[]>([]);
+    // const [comments, setCommnets] = useState<any[]>([]);
 
     const [commentText, setCommentText] = useState('');
 
     const addCommnet = () => {
-        setCommnets([...comments, {text: commentText, photo: userInfo.image, date: Date.now()}])
+
+        dispatch(commentActions.create({email: store[0].email, storeId: store[0]._id, text: commentText, photo: userInfo.image}) as any)
+        // setCommnets([...comments, {text: commentText, photo: userInfo.image, date: Date.now()}])
         setOpenCommentModal(false)
         setCommentText('')
     }
@@ -147,8 +156,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
 
     useEffect(() => {
+        
         dispatch(storeActions.one(id) as any);
-    }, [dispatch])
+
+    }, [dispatch, successComment])
 
     return (
         <div>
@@ -185,7 +196,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                               >
                             {store[0].images.map((image:any) => (
                                 
-                                <SwiperSlide>
+                                <SwiperSlide key={image}>
                             <img className='store-image' src={image} alt="iamgen" />
                             </SwiperSlide>
                             ))}
@@ -211,13 +222,13 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
                             <div className="comments">
                                 <div className="comments-header">
-                                <h3>Comentarios <span>{comments.length}</span> </h3> 
+                                <h3>Comentarios <span>{store[0].comments.length}</span> </h3> 
                                 <button onClick={() => setOpenCommentModal(true)}><i className='bx bx-comment-detail'></i></button>
                                 </div>
 
                                 <div className="comments-list">
-                                    {comments.map(comment => (
-                                        <div className="comment-card">
+                                    {store[0].comments.map((comment: any) => (
+                                        <div className="comment-card" key={comment._id}>
                                             <div>
                                                 <img src={comment.photo} alt="" />
                                                 </div>

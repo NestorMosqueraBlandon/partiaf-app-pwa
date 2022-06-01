@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import bookingReducer from "./reducers/bookingRedcuers";
 import buyReducer from "./reducers/buyRedcuers";
 import { cartReducer } from "./reducers/cartReducers";
+import commentReducer from "./reducers/commentReducers";
 import storeReducer from "./reducers/storeReducers";
 import { userSigninReducer, userSignupReducer } from "./reducers/userReducers"
 
@@ -28,6 +29,8 @@ const reducer = combineReducers({
     createBuy: buyReducer.createReducer,
     createBooking: bookingReducer.createReducer,
 
+    commentList: commentReducer.listReducer,
+    createComment: commentReducer.createReducer,
 
     cart: cartReducer
 

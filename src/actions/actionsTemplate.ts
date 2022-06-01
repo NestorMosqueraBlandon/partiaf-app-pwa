@@ -69,6 +69,16 @@ export default class actionsTemplate{
         }
     }
 
+    listData = (storeId:string, email:string) => async(dispatch: Dispatch) => {
+        dispatch({type: this.LIST_REQUEST});
+        try{
+            const {data} = await Axios.get(`${this.URL}/${this.api}`)
+            dispatch({type: this.LIST_SUCCESS, payload: data});
+        }catch(err){
+            dispatch({type: this.LIST_FAIL});
+        }
+    }
+
     one = (id: string | undefined) => async(dispatch: any) => {
         console.log(id)
         dispatch({type: this.DETAILS_REQUEST, payload: id});
