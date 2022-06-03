@@ -86,12 +86,12 @@ export const SignupScreen: React.FunctionComponent<ISigninScreenProps> = (props)
                 Femenino
               </p>
             </label>
-            <label htmlFor="">
-              <input type="radio" name="gender" id="gender" />
+            <Link to='/gender' className='genter-link'>
+              <span className='gender'></span>
               <p>
                 Otro
               </p>
-            </label>
+            </Link>
           </div>
           <div className="home-buttons">
             <button className='btn-principal' onClick={(e) => submitHandler(e) }>Siguiente</button>

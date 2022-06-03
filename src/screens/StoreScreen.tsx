@@ -68,7 +68,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             console.log(itemsCart)
             const index = itemsCart.findIndex((cart: any) => cart.product == product._id);
             if (index >= 0) {
-                // console.log(itemsCart[index].qty++)
+                console.log(itemsCart[index].qty++)
 
                 if (itemsCart[index].qty <= product.amount) {
 

@@ -12,9 +12,9 @@ export const Header: React.FunctionComponent<IHeaderProps> = (props) => {
       <Link to="/qr">
         <i className='bx bx-qr-scan' ></i>
         </Link>
-        <button>
+        {/* <button>
           <i className='bx bx-chat' ></i>
-        </button>
+        </button> */}
         {/* <button className='header-coin'><i className='bx bx-coin-stack' ></i> 50,000</button> */}
       </span>
     
