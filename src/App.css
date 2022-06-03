@@ -405,6 +405,18 @@ details .menu-item > div{
   color: #333;
 }
 
+.swiper-pagination{
+  bottom: 500px;
+}
+
+.swiper-pagination-bullet{
+  opacity: 1 !important;
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+
+.swiper-pagination-bullet-active{
+  background-color: #FDBD00 !important;
+}
 .cover-header{
   background-color: #FDBD00;
   padding-top: 0 !important;
@@ -1614,6 +1626,8 @@ border: 1px solid rgba(0, 0, 0, .05);
 
 .comments-list{
   padding-bottom: 7rem;
+  overflow: scroll;
+  height: 90%;
 }
 
 .gender{
@@ -1792,14 +1806,18 @@ width: 90%;
 .info-header-name{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start !important;
   text-align: left;
-  justify-content: flex-start;
 }
 
 .info-header-name .star{
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  /* margin-left: -3rem; */
 }
 
+.star i{
+  color: #FDBD00;
+  text-align: left;
+}

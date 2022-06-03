@@ -12,11 +12,13 @@ import { DivisaFormater } from '../utils/divisaFormater'
 import TimeAgo from 'react-timeago'
 import swal from 'sweetalert'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
 import commentActions from '../actions/commentActions'
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
-import { Pagination } from "swiper";
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
@@ -196,12 +198,11 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <>
                     <div className='store-container'>
                         <Swiper
-                           pagination={{
-                            dynamicBullets: true,
-                          }}
+                          effect="fade"
                           modules={[Pagination]}
-                            spaceBetween={50}
-                            slidesPerView={1}                         
+                          spaceBetween={50}
+                          slidesPerView={1}
+                          pagination={{ clickable: true }}                         
                         >
                             {store[0].images.map((image: any) => (
 
