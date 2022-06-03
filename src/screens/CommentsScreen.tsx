@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 export const GenderScreen = () => {
   
   return (
-    <div className='gender-screen'>
+    <div className='comments-screen'>
         <header>
         <Link to="/register">
             <i className='bx bx-x'></i>

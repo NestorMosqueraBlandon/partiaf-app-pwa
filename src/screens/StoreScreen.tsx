@@ -14,7 +14,9 @@ import swal from 'sweetalert'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import commentActions from '../actions/commentActions'
+import "swiper/css/pagination";
 
+import { Pagination } from "swiper";
 export const StoreScreen: React.FunctionComponent = (props: any) => {
 
     const storeOne = useSelector((state: any) => state.storeOne);
@@ -194,10 +196,12 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 <>
                     <div className='store-container'>
                         <Swiper
+                           pagination={{
+                            dynamicBullets: true,
+                          }}
+                          modules={[Pagination]}
                             spaceBetween={50}
-                            slidesPerView={1}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
+                            slidesPerView={1}                         
                         >
                             {store[0].images.map((image: any) => (
 
@@ -209,7 +213,17 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         </Swiper>
                         <div className="store-info">
                             <div className="store-info-header">
+                                
+                                <div className="info-header-name">
                                 <h2>{store[0].name}</h2>
+                                <div className="star">
+                                <i className='bx bxs-star' ></i>
+                                <i className='bx bxs-star' ></i>
+                                <i className='bx bxs-star' ></i>
+                                <i className='bx bxs-star' ></i>
+                                <i className='bx bxs-star-half' ></i>
+                                </div>
+                                </div>
                                 <div>
                                     <a href={`tel:${store[0].mobile}`}><span><i className='bx bxs-phone'></i></span> </a>
                                     <a href={`https://api.whatsapp.com/send?phone=57${store[0].mobile}`}><i className='bx bxl-whatsapp' ></i></a>
@@ -232,7 +246,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 </div>
 
                                 <div className="comments-list">
-                                    {store[0].comments.map((comment: any) => (
+                                    {store[0].comments.filter((comment:any, index:any) => index < 5)
+                                    .map((comment: any) => (
                                         <div className="comment-card" key={comment._id}>
                                             <div>
                                                 <img src={comment.photo} alt="" />
@@ -548,18 +563,35 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
             {openCommnet && (
 
-                <div className="comment-modal">
-                    <div className='modal'>
-                        <div className="modal-header">
-                            <h3>Comentario</h3>
-                            <button onClick={() => setOpenCommentModal(false)}><i className='bx bx-x'></i></button>
+                <div className="comment-screen">
+                    <header>
+                        <button className='comment-close' onClick={() => setOpenCommentModal(false)}>
+                            <i className='bx bx-x'></i>
+                        </button>
+                        <p>
+                            Comentarios
+                        </p>
+                        <span><i className='bx bx-x'></i></span>
+                    </header>
+                    <div className="comments-list">
+                        {!loading && store[0].comments
+                        .map((comment: any) => (
+                            <div className="comment-card" key={comment._id}>
+                                <div>
+                                    <img src={comment.photo} alt="" />
+                                </div>
+                                <span>
+                                    <p>{comment.text}</p>
+                                    <p><TimeAgo date={comment.date} /></p>
+                                </span>
 
-                        </div>
-
-                        <input type="text" placeholder='Escribe un comentario' value={commentText} onChange={(e) => setCommentText(e.target.value)} />
-                        <button className='btn btn-primary' onClick={() => addCommnet()}>Comentar</button>
+                            </div>
+                        ))}
                     </div>
-
+                    <div className="comment-input">
+                        <input type="text" placeholder='Escribe un comentario' value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+                        <button className='btn btn-primary' onClick={() => addCommnet()}><i className='bx bxs-send'></i></button>
+                    </div>
                 </div>
             )}
 
