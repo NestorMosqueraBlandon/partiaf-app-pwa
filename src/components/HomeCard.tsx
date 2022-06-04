@@ -1,7 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { Pagination } from "swiper";
 
-interface CardData {}
+import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
+
+interface CardData { }
 
 type TState = { stores: TStore[]; greeeting: string };
 type TStoresProps = { users: TStore[] | undefined };
@@ -27,16 +35,31 @@ export const HomeCard: React.FunctionComponent<IHomeCardProps | undefined> = (
 ) => {
   const { id, name, address, type, images } = store;
 
+  images?.map(image => console.log(image))
+
   return (
     <Link to={`/store/${id}`} className="card-home">
-      <img
-        src={images && images[0] ? images[0] : "/img/icon-es.png"}
-        alt="Establecimiento"
-      />
+      <Swiper
+        effect="fade"
+        modules={[Pagination]}
+        spaceBetween={50}
+        slidesPerView={1}
+        pagination={{ clickable: true }}>
+        {images?.map((image) => (
+          <SwiperSlide key={image}>
+            <img
+              src={image}
+              alt="Establecimiento"
+            />
+          </SwiperSlide>
+        ))}
+
+        {images == undefined || images?.length <= 0 && <img src="/img/icon-es.png" />}
+      </Swiper>
+
       <div>
-        <h2>{name}</h2>
-        <h4>{type}</h4>
-        <p>{address}</p>
+        <h2>{name || <Skeleton /> }</h2>
+        <h4>{type || <Skeleton />}</h4>
       </div>
       <button>
         <i className="bx bx-heart"></i>

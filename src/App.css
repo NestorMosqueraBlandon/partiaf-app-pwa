@@ -3,11 +3,14 @@
   padding: 0;
   margin: 0;
 }
+
+
 .background {
   background-color: #fff;
   position: relative;
   overflow: hidden;
   height: 100vh;
+  
 }
 
 .home-ground {
@@ -67,8 +70,9 @@
 .btn-secondary-link {
   border: none;
   border-radius: 0.7rem;
-  display: block;
-  /* height: 35px; */
+  display: inline-block;
+  height: 45px !important;
+  padding: 1.4rem !important;
   z-index: 99;
   color: #333;
 }
@@ -137,14 +141,14 @@
   background-color: #fff;
   width: 100%;
   margin: 0rem auto;
-  left: calc(50%);
-  transform: translate(-50%, 0%);
+  /* left: calc(50%); */
+  /* transform: translate(-50%, 0%); */
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
-  position: fixed;
+  position: sticky;
   z-index: 9999;
 }
 
@@ -179,30 +183,39 @@
   color: #dcdcdc;
 }
 
+.stores-list-container{
+  padding-bottom: 8rem;
+}
+
 .card-home {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  flex-direction: column;
   background-color: #fff;
   max-width: 90%;
   margin: 0 auto;
   border-radius: 0.5rem;
   margin-top: 2rem;
   gap: 1rem;
-  height: 8rem;
+  /* height: 8rem; */
   overflow: hidden;
 }
 
+.card-home .swiper{
+  width: 100%;
+}
+
 .card-home img {
-  width: 100px;
-  height: 100%;
+  /* width: 100%; */
+  height: 300px;
   object-fit: cover;
 }
 
 .card-home > div {
   display: flex;
   flex-direction: column;
-  padding-top: 1rem;
 }
 
 .card-home > div h2 {
@@ -212,7 +225,8 @@
 
 .card-home > div h4 {
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .card-home > div p {
@@ -221,7 +235,7 @@
 
 .data-container {
   overflow: scroll;
-  background-color: rgba(0, 0, 0, 0.032);
+  background-color: #FFF;
 }
 
 .categories {
@@ -281,18 +295,34 @@
   position: absolute;
   right: 1rem;
   top: 1rem;
+  height: 3rem;
+  width: 3rem;
   border: none;
   font-size: 1.8rem;
-  background-color: transparent;
+  border-radius: 50rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+
+.card-home button{
+  position: absolute;
+  z-index: 1;
+
+
+}
+
 
 .store-container {
   overflow: hidden;
+  height: 35vh;
 }
 
 .store-container .store-image {
   width: 100%;
-  height: 50%;
+  height: 100%;
   position: absolute;
   top: 0;
   z-index: -1;
@@ -302,7 +332,7 @@
 .store-info {
   position: absolute;
   bottom: 0;
-  height: 50%;
+  height: 65%;
   background-color: #fff;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   border-bottom-right-radius: 0;
@@ -313,22 +343,25 @@
   overflow: hidden;
 }
 
+
 .swiper-wrapper {
-  height: 100vh !important;
+  height: 100% !important;
 }
 
 .store-info-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 1rem 2.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.swiper {
+
+.store-container .swiper {
   height: 100% !important;
 }
 
-.swiper img {
+.store-container .swiper img {
   height: 100%;
   object-fit: cover;
 }
@@ -496,7 +529,7 @@ details > summary {
   bottom: 0;
   left: 0;
   z-index: 99999;
-  height: 4rem;
+  height: 5.5rem;
   overflow: hidden;
   width: 100%;
   display: flex;
@@ -505,7 +538,7 @@ details > summary {
   background-color: #fff;
   /* border-top: 1px solid rgba(0, 0, 0, .3); */
   /* padding: 1rem 0; */
-  padding-bottom: 2.5rem;
+  padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
 }
@@ -723,6 +756,7 @@ details > summary {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  height: 4.5rem;
 }
 
 .login .input-form i {
@@ -764,15 +798,16 @@ details > summary {
 }
 
 .search-form {
-  width: 86%;
+  width: 90%;
   margin: 0 auto;
-  margin-top: 6rem;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
-  height: 1.8rem;
+  height: 4.8rem;
   background-color: #fff;
   padding: 1rem;
-  border-radius: 5rem;
+  border-radius: .5rem;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);
 }
 
 .search-form i {
@@ -790,14 +825,15 @@ details > summary {
   display: flex;
   gap: 1.4rem;
   width: 90%;
-  margin: 2rem auto;
+  margin-top: 2rem;
   margin-bottom: 0;
   /* background-color: #FFF; */
   width: 100%;
-  /* padding: 0 2rem; */
-  justify-content: center;
+  padding: 0 2rem;
+  justify-content: space-between;
   overflow: auto;
   white-space: nowrap;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .store-categories button {
@@ -807,10 +843,16 @@ details > summary {
   font-size: 1.6rem;
   background-color: #fff;
   padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
+  /* margin-bottom: 1rem; */
   font-size: 1.4rem;
 }
+
+
+.store-categories .active {
+  color: #fdbd00;
+  border-bottom: 1px solid #fdbd00;
+}
+
 .danger {
   width: 100%;
   display: flex;
@@ -888,42 +930,51 @@ details > summary {
 .buttons-item {
   padding: 2rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-end;
+  justify-content: space-around;
   gap: 2rem;
 }
 
 .buttons-item button {
   display: inline-block;
-  height: 4rem;
   /* width: 9rem; */
   border: none;
   font-size: 1.6rem;
   font-weight: 600;
   /* border: 1px solid rgba(0, 0, 0, .5); */
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.buttons-item button {
+  font-size: 1.3rem;
+  font-weight: 500;
 }
 
 .back-btn {
   background-color: transparent;
   border: none;
+  height: 2rem;
+  width: 2rem;
   padding: 0 2rem;
-  font-size: 2rem;
   font-size: 1.6rem;
 }
 
 .back-btn-link {
   /* display: block; */
   background-color: #fff;
-  width: 8%;
+  width: 4.6rem;
   text-align: left;
   position: fixed;
   top: 0;
   z-index: 99999;
-  height: 3rem;
+  height: 5.5rem;
   font-size: 3rem;
   padding-left: 1rem;
-  padding-top: 0.8rem;
+  padding-top: 1.3rem;
   color: #333;
 }
 
@@ -1027,12 +1078,12 @@ details > summary {
 
 .back-btn {
   background-color: #fff;
-  width: 10%;
+  width: 4.8rem;
   text-align: left;
   position: fixed;
   top: 0;
   z-index: 999999999999999;
-  height: 4rem;
+  height: 5.5rem;
   font-size: 3rem;
   padding-left: 1rem;
   padding-top: 0.8rem;
@@ -1786,10 +1837,110 @@ details > summary {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  /* margin-left: -3rem; */
+  margin-left: -.1rem;
+}
+
+.info-header-name h4{
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.3rem;
 }
 
 .star i {
   color: #fdbd00;
   text-align: left;
+}
+
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 50vh;
+}
+
+.loading-box{
+  height: 100px;
+  width: 100px;
+  border:1px solid #333;
+  border-radius: 50rem;
+  margin-bottom: 2rem;
+  border-left: 1px solid transparent;
+  
+}
+
+.card-skeleton{
+  /* margin: 2rem; */
+  max-width: 90%;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.store-skeleton{
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.m-1{
+  margin-bottom: 2rem;
+}
+.flex{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.swiper{
+  position: relative;
+}
+.store-favorite{
+  position: absolute;
+  top: 10px;
+  right: 1rem;
+  z-index: 999999;
+  border-radius: 50rem;
+  border: none;
+  height: 3.5rem;
+  width: 3.5rem;
+  font-size: 1.8rem;
+}
+
+.cover-container{
+  padding: 1rem;
+  overflow: scroll;
+}
+
+.cover-container .cover-screen-item{
+  padding: 0;
+  border: none;
+  min-width: 150px;
+  width: 150px;
+  height: 200px;
+}
+
+.cover-container .cover-screen-item img{
+  border-radius: 0rem;
+  height: 50%;
+  width: 100%;
+}
+
+.cover-container .cover-screen-item{
+  text-align: left;
+}
+
+
+.cover-container .cover-info{
+  text-align: left;
+  padding: 1rem;
+}
+
+.cover-description{
+  inline-size: 150px; 
+}
+
+.similar-text{
+  font-size: 1.6rem;
+  margin: 1rem;
+  margin-top: 2rem;
 }

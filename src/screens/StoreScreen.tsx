@@ -18,6 +18,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import StoreSkeleton from "../components/StoreSkeleton";
 
 export const StoreScreen: React.FunctionComponent = (props: any) => {
   const storeOne = useSelector((state: any) => state.storeOne);
@@ -234,6 +235,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         <i className="bx bx-left-arrow-alt"></i>{" "}
       </Link>
 
+        {loading && <StoreSkeleton />}
+
       {!loading && (
         <>
           <div className="store-container">
@@ -247,6 +250,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
               {store[0].images.map((image: any) => (
                 <SwiperSlide key={image}>
                   <img className="store-image" src={image} alt="iamgen" />
+                
+                  <button className="store-favorite">
+                    <i className="bx bx-heart"></i>
+                  </button>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -261,6 +268,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     <i className="bx bxs-star"></i>
                     <i className="bx bxs-star-half"></i>
                   </div>
+                  <h4>{store[0].type}</h4>
                 </div>
                 <div>
                   <a href={`tel:${store[0].mobile}`}>
@@ -277,21 +285,21 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     <i className="bx bxs-location-plus"></i>{" "}
                   </a>
 
-                  <button>
-                    <i className="bx bx-heart"></i>
-                  </button>
                 </div>
               </div>
 
               <div className="buttons-item">
                 <button onClick={() => setOpenCover(true)}>
-                  <i className="bx bx-no-entry"></i> COVERS
+                  <img src="/img/covers-disco.svg" alt="" />
+                  Covers
                 </button>
                 <button onClick={() => setOpenBooking(true)}>
-                  <i className="bx bxs-bookmark"></i> RESERVAS
+                <img src="/img/reserva-disco.svg" alt="" />
+                  Reservas
                 </button>
                 <button onClick={() => setOpenMenu(true)}>
-                  <i className="bx bxs-food-menu"></i> MENU
+                <img src="/img/menu-disco.svg" alt="" />
+                   Menu
                 </button>
               </div>
 
@@ -336,12 +344,17 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
           <div className="cover-container">
             {!loading &&
               store[0].covers.map((cover: any) => (
-                <button key={cover._id} className="menu-screen-item">
+                <button key={cover._id} className="cover-screen-item">
+                  <img src="/img/coverimg.jpg" alt="" />
+                  <div className="cover-info">
+
                   <h3>{cover.type}</h3>
-                  <p>{cover.description}</p>
+                  <p className="cover-description">{cover.description}</p>
                   <p>{cover.price}</p>
                   <p>{cover.hour}</p>
                   <p>{cover.date}</p>
+                  </div>
+
                 </button>
               ))}
           </div>
@@ -409,18 +422,25 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             </div>
           </div>
           <button className="btn-primary">Pagar</button>
+          <h2 className="similar-text">Eventos similares</h2>
 
-          <div className="cover-container-wrap">
-            <h2>Eventos similares</h2>
+          <div className="cover-container">
             <div>
               {!loading &&
                 store[0].covers.map((cover: any) => (
-                  <button key={cover._id} className="menu-screen-item">
+                  <button key={cover._id} className="cover-screen-item">
+                    <img src="/img/coverimg.jpg" alt="" />
+                    <div className="cover-info">
                     <h3>{cover.type}</h3>
+
+
+
                     <p>{cover.description}</p>
                     <p>{cover.price}</p>
                     <p>{cover.hour}</p>
                     <p>{cover.date}</p>
+                    </div>
+
                   </button>
                 ))}
             </div>

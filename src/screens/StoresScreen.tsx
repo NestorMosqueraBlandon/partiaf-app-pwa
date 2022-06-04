@@ -4,6 +4,9 @@ import { reduceEachTrailingCommentRange } from "typescript";
 import BottonMenu from "../components/BottonMenu";
 import { Header } from "../components/header/Header";
 import { HomeCard } from "../components/HomeCard";
+import LoadingBox from "../components/LoadingBox";
+import Skeleton from 'react-loading-skeleton';
+import CardSkeleton from "../components/CardSkeleton";
 
 export interface IStoreScreenProps {}
 
@@ -65,19 +68,23 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (
           />
         </div>
         <div className="store-categories">
-          <button onClick={() => setCategory("")}>Todo</button>
-          <button onClick={() => setCategory("Bar")}>Bares</button>
-          <button onClick={() => setCategory("Discoteca")}>Discotecas</button>
-          <button onClick={() => setCategory("Gastrobar")}>Gastrobares</button>
+          <button className={category == ""? "active" : ""} onClick={() => setCategory("")}>Todo</button>
+          <button className={category == "Bar"? "active" : ""} onClick={() => setCategory("Bar")}>Bares</button>
+          <button className={category == "Discoteca"? "active" : ""} onClick={() => setCategory("Discoteca")}>Discotecas</button>
+          <button className={category == "Gastrobar"? "active" : ""} onClick={() => setCategory("Gastrobar")}>Gastrobares</button>
         </div>
         {/* <div className="sub-header">
         <button><i className='bx bx-filter' ></i> Filtrar</button>
         <button onClick={() => setOpenCategories(true)}> Cambiar categoria</button>
       </div> */}
-        <div className="">
-          {hasStores ? (
-            <>
-              {data
+        <div className="stores-list-container">
+
+          {!hasStores && <CardSkeleton />}
+          {!hasStores && <CardSkeleton />}
+          {!hasStores && <CardSkeleton />}
+
+
+              {hasStores && data
                 ?.filter(({ name }) =>
                   name?.toLowerCase().includes(search.toLowerCase())
                 )
@@ -92,10 +99,6 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (
                     type={type}
                   />
                 ))}
-            </>
-          ) : (
-            <h2>Cargando</h2>
-          )}
         </div>
       </div>
 
