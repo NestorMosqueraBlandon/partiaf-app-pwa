@@ -804,7 +804,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
       {totalPrice > 0 && qr == true && (
         <div className="qr-screen">
           <h3>Metodos de pago </h3>
-          {/* <QRCode value={`${price}`} /> */}
           <button className="btn-pay">Particoins</button>
           <Link to="/qr" className="btn-pay-link">
             Efectivo
@@ -823,7 +822,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             />
           </form>
 
-          {/* <button onClick={() => setqr(false)}>Aceptar</button> */}
         </div>
       )}
 
