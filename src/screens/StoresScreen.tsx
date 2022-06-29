@@ -44,7 +44,7 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (
 
   useEffect(() => {
     apiFetch<IData[]>(
-      "http://partiaf-api-recahce.herokuapp.com/api/v2/stores"
+      "https://partiaf-api-recache.herokuapp.com/api/v2/stores"
     ).then((response) => {
       setData(response);
       console.log(response)
