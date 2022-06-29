@@ -1,0 +1,20 @@
+{
+  "short_name": "Partiaf",
+  "name": "Partiaf",
+  "icons": [
+    {
+      "src": "logopartiaf.svg",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logopartiaf.svg",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#fff",
+  "background_color": "#ffffff"
+}
