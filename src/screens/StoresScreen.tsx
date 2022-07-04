@@ -83,8 +83,6 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (
           {!hasStores && <CardSkeleton />}
           {!hasStores && <CardSkeleton />}
           {!hasStores && <CardSkeleton />}
-
-
               {hasStores && data
                 ?.filter(({ name }) =>
                   name?.toLowerCase().includes(search.toLowerCase())

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import bookingActions from "../actions/bookingActions";
 import buyActions from "../actions/buyActions";
 import { addToCart, removeFromCart } from "../actions/cartActions";
@@ -28,7 +28,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
   const listCover = useSelector((state: any) => state.listCover);
   const { loading: loadingCovers, error: errorCovers, covers } = listCover;
 
-    const coverInsert = useSelector((state: any) => state.coverInsert);
+  const coverInsert = useSelector((state: any) => state.coverInsert);
   const { loading: loadingInsert, error: errorInsert, success: successInsert } = coverInsert;
 
   const createComment = useSelector((state: any) => state.createComment);
@@ -51,6 +51,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
   const userSignin = useSelector((state: any) => state.userSignin);
   const { userInfo } = userSignin;
 
+  const [balance, setBalance] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   const cart = useSelector((state: any) => state.cart);
   const { cartItems: itemsCart } = cart;
 
@@ -140,12 +142,14 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     }
   };
 
+  const [pin, setPin] = useState("");
+
   let totalPrice =
     itemsCart?.length > 0
       ? itemsCart.reduce(
-          (a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty),
-          0
-        )
+        (a: any, c: any) => Number(a) + Number(c.price) * Number(c.qty),
+        0
+      )
       : 0;
 
   const buyHandler = () => {
@@ -207,18 +211,27 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     setCommentText("");
   };
 
-  const [coverSelected, setCoverSelected] = useState({_id: "3434", price: 0});
+  const [coverSelected, setCoverSelected] = useState({ _id: "3434", price: 10 });
 
 
   const insertPeoplesToCover = () => {
-    const id =  coverSelected?._id;
+    const id = coverSelected?._id;
     dispatch(insertCover(id, people, userInfo._id, "accepted", coverSelected?.price * people, userInfo.gender, userInfo.name, userInfo.photo) as any)
   }
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getOneStore(id) as any);
     dispatch(getManyCovers(id) as any);
-  }, [dispatch]);
+    
+
+    if(successInsert){
+    dispatch({type: 'COVER_INSERT_RESET'})
+      alert('Pago confirmado y cover creado');
+      navigate('/')
+    }
+  }, [dispatch, successInsert]);
 
   console.log(coverSelected)
   return (
@@ -240,6 +253,12 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
           <i className="bx bx-left-arrow-alt"></i>{" "}
         </button>
       )}
+ {balance && (
+        <button className="back-btn" onClick={() => setBalance(false)}>
+          <i className="bx bx-left-arrow-alt"></i>{" "}
+        </button>
+      )}
+
 
       {qr && (
         <button className="back-btn" onClick={() => setqr(false)}>
@@ -251,7 +270,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         <i className="bx bx-left-arrow-alt"></i>{" "}
       </Link>
 
-        {loading && <StoreSkeleton />}
+      {loading && <StoreSkeleton />}
 
       {!loading && (
         <>
@@ -266,13 +285,13 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
               {store.photos.map((image: any) => (
                 <SwiperSlide key={image}>
                   <img className="store-image" src={image} alt="imagen" />
-                
-           
+
+
                 </SwiperSlide>
               ))}
-                     <button className="store-favorite">
-                    <i className="bx bx-heart"></i>
-                  </button>
+              <button className="store-favorite">
+                <i className="bx bx-heart"></i>
+              </button>
             </Swiper>
             <div className="store-info">
               <div className="store-info-header">
@@ -311,12 +330,12 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                   Covers
                 </button>
                 <button onClick={() => setOpenBooking(true)}>
-                <img src="/img/reserva-disco.svg" alt="" />
+                  <img src="/img/reserva-disco.svg" alt="" />
                   Reservas
                 </button>
                 <button onClick={() => setOpenMenu(true)}>
-                <img src="/img/menu-disco.svg" alt="" />
-                   Menu
+                  <img src="/img/menu-disco.svg" alt="" />
+                  Menu
                 </button>
               </div>
 
@@ -357,25 +376,100 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
           <button className="back-btn" onClick={() => setOpenCover(false)}>
             Atras{" "}
           </button>
-          <div className="cover-container">
-            {!loadingCovers &&
-              covers.map((cover: any) => (
-                <button key={cover._id} className="cover-screen-item" onClick={() => setCoverSelected(cover)}>
-                  <img src="/img/coverimg.jpg" alt="" />
-                  <div className="cover-info">
 
-                  <h3>{cover.type}</h3>
-                  <p className="cover-description">{cover.description}</p>
-                  <p>{cover.price}</p>
-                  <p>{cover.hour}</p>
-                  <p>{cover.date}</p>
-                  </div>
+          <div>
+            <Swiper
+              effect="fade"
+              modules={[Pagination]}
+              spaceBetween={50}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+            >
+              {store.photos.map((image: any) => (
+                <SwiperSlide key={image}>
+                  <img className="store-image" src={image} alt="imagen" />
 
-                </button>
+
+                </SwiperSlide>
               ))}
+              <button className="store-favorite">
+                <i className="bx bx-heart"></i>
+              </button>
+            </Swiper>
+            <div className="store-info">
+              <div className="store-info-header">
+                <div className="info-header-name">
+                  <h2>{store.name}</h2>
+                  <div className="star">
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star-half"></i>
+                  </div>
+                  <h4>{store.type}</h4>
+                </div>
+                <div>
+                  <a href={`tel:${store.mobile}`}>
+                    <span>
+                      <i className="bx bxs-phone"></i>
+                    </span>{" "}
+                  </a>
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=57${store.mobile}`}
+                  >
+                    <i className="bx bxl-whatsapp"></i>
+                  </a>
+                  <a href="https://www.google.com/maps/place/Jumbo+Calle+80/@4.6909253,-74.0839133,19.62z/data=!4m5!3m4!1s0x8e3f9b2177059375:0x34d1a90a38fbc99!8m2!3d4.6909593!4d-74.0841774">
+                    <i className="bx bxs-location-plus"></i>{" "}
+                  </a>
+
+                </div>
+              </div>
+
+              <div className="cover-container">
+
+                {!loadingCovers &&
+                  covers.map((cover: any) => (
+                    <button key={cover._id} className="cover-screen-item" onClick={() => setCoverSelected(cover)}>
+                      <img src="/img/coverimg.jpg" alt="" />
+                      <div className="cover-info">
+                        <h3>{cover.name}</h3>
+                        <p className="cover-description">{cover.description}</p>
+                        <div className="cover-info-date">
+                          <div>
+                          <p>Cupos: {cover.limit}</p>
+                            <p>Hora: {cover.hour}</p>
+                            <p>Fecha: {cover.date.substring(10, 0)}</p>
+                          </div>
+                          <div>
+                            <h2 className="cover-type">{cover.type}</h2>
+                          </div>
+
+                        </div>
+
+                        <div className="cover-payment">
+                        <p className="price">{DivisaFormater(cover.price)}</p>
+                        <div>
+                          <button onClick={() => {setPeople(people-1)}}>-</button>
+                          <input type="text" value={coverSelected._id == cover._id? people : 0} />
+                          <button onClick={() => {setPeople(people+1)}}>+</button>
+                        </div>
+                        </div>
+                      </div>
+
+                    </button>
+                  ))}
+              </div>
+              {people > 0 && (<button className="btn-primary btn-cover" onClick={balance == true? insertPeoplesToCover : () => setBalance(true)}>Pagar</button>)}
+
+            </div>
+
+
           </div>
 
-          <div className="section-booking section-cover">
+
+          {/* <div className="section-booking section-cover">
             <h2>
               <i className="bx bx-user-plus"></i> Cuantas entradas deseas?
             </h2>
@@ -436,9 +530,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 9
               </button>
             </div>
-          </div>
-          <button className="btn-primary" onClick={insertPeoplesToCover}>Pagar</button>
-          <h2 className="similar-text">Eventos similares</h2>
+          </div> */}
+          {/* <h2 className="similar-text">Eventos similares</h2>
 
           <div className="cover-container">
             <div>
@@ -447,20 +540,20 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                   <button key={cover._id} className="cover-screen-item">
                     <img src="/img/coverimg.jpg" alt="" />
                     <div className="cover-info">
-                    <h3>{cover.type}</h3>
+                      <h3>{cover.type}</h3>
 
 
 
-                    <p>{cover.description}</p>
-                    <p>{cover.price}</p>
-                    <p>{cover.hour}</p>
-                    <p>{cover.date}</p>
+                      <p>{cover.description}</p>
+                      <p>{cover.price}</p>
+                      <p>{cover.hour}</p>
+                      <p>{cover.date}</p>
                     </div>
 
                   </button>
                 ))}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
       {openBooking && (
@@ -708,8 +801,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                                 (c: any) => c.product == item._id
                               )[0]?.qty
                                 ? itemsCart.filter(
-                                    (c: any) => c.product == item._id
-                                  )[0]?.qty
+                                  (c: any) => c.product == item._id
+                                )[0]?.qty
                                 : 0}
                             </p>
                             <button onClick={() => setCart(item, "add")}>
@@ -725,7 +818,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         </div>
       )}
 
-      {(openMenu || openCover || openBooking) && (
+      {(openMenu || openBooking) && (
         <div className="footer-price">
           <button onClick={() => setOpenFooter(true)} className="order-btn">
             <i className="bx bxs-chevron-up"></i>
@@ -777,7 +870,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                   {itemsCart.filter((c: any) => c.product == item.product)[0]
                     ?.qty
                     ? itemsCart.filter((c: any) => c.product == item.product)[0]
-                        ?.qty
+                      ?.qty
                     : 0}
                 </p>
                 <button
@@ -825,6 +918,42 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         </div>
       )}
 
+
+      {balance && (
+        <div className="menu-screen min-he balance-screen">
+          <div className="cartera">
+            <p>Mi cartera</p>
+            <h2>{DivisaFormater(userInfo.balance)}</h2>
+          </div>
+
+          <div className="total-pay">
+            <p>Total a pagar</p>
+            <h2>{DivisaFormater(coverSelected.price * people)}</h2>
+          </div>
+
+          <div className="info">
+
+          <p>Detalles de compra</p>
+
+          <div className="box">
+            <h3>{store.name}</h3>
+            <p>{people} Covers ---------------------------------------- {DivisaFormater(coverSelected.price * people)}</p>
+          </div>
+          </div>
+
+          {userInfo.balance < coverSelected.price * people? (
+          <div>
+
+          <h2 className="not-money">No tienes suficiente dinero</h2>
+          <p className="not-money-p">Te sugerimos recargar tu cuenta</p>
+          </div>
+          
+          ) : <button className="btn-primary btn-cover" onClick={() => setConfirm(true)}>Pagar</button>}
+          
+          
+        </div>
+      )}
+
       {openCommnet && (
         <div className="comment-screen">
           <header>
@@ -867,6 +996,52 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             </button>
           </div>
         </div>
+      )}
+
+      
+      
+      {confirm && (
+
+      <div className="confirm-modal">
+        <div className="confirm-screen">
+            <div className="confirm-header">
+            <button onClick={() => setBalance(false)}>
+          <i className="bx bx-left-arrow-alt"></i>{" "}
+        </button>
+
+        <h4>Confirmacion</h4>
+        <div>
+        <i className="bx bx-left-arrow-alt"></i>
+        </div>
+            </div>
+            <div className="confirm-pant">
+              <h4>Introduzca su pin</h4>
+              <div className="box">
+                  {pin}
+              </div>
+            </div>
+
+            <div className="confirm-buttons">
+              <button onClick={() => setPin(pin + 1)}>1</button>
+              <button onClick={() => setPin(pin + 2)}>2</button>
+              <button onClick={() => setPin(pin + 3)}>3</button>
+              <button onClick={() => setPin(pin + 4)}>4</button>
+              <button onClick={() => setPin(pin + 5)}>5</button>
+              <button onClick={() => setPin(pin + 6)}>6</button>
+              <button onClick={() => setPin(pin + 7)}>7</button>
+              <button onClick={() => setPin(pin + 8)}>8</button>
+              <button onClick={() => setPin(pin + 9)}>9</button>
+              <button></button>
+              <button onClick={() => setPin(pin + 0)}>0</button>
+              <button onClick={() => setPin(pin.slice(0, -1))} >Borrar</button>
+
+            </div>
+
+            <button className="confirm-confirm" onClick={insertPeoplesToCover}>
+              Confirmar
+            </button>
+        </div> 
+      </div>
       )}
 
       <BottonMenu />

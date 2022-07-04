@@ -1478,6 +1478,7 @@ details > summary {
 
 .cover-container {
   display: flex;
+  flex-direction: column;
   overflow: auto;
   white-space: nowrap;
   gap: 2rem;
@@ -1915,25 +1916,40 @@ details > summary {
 .cover-container .cover-screen-item{
   padding: 0;
   border: none;
-  min-width: 150px;
-  width: 150px;
-  height: 200px;
+  /* min-width: 150px; */
+  width: 100%;
+  height: 170px;
+
+  background:  linear-gradient(0deg, rgba(253,189,0,1) 0%, rgba(0,0,0,1) 0%, rgba(102,100,100,1) 70%, rgb(151, 151, 151) 100%);
+
+  display: flex;
+  /* align-items: center; */
+  padding: 1rem;
+  color: #fff;
 }
 
 .cover-container .cover-screen-item img{
   border-radius: 0rem;
-  height: 50%;
-  width: 100%;
+  height: 100%;
+  width: 30%;
+  object-fit: cover;
+  border-radius: .3rem;
 }
 
 .cover-container .cover-screen-item{
   text-align: left;
 }
 
+.cover-container .cover-screen-item .cover-info p{
+  
+  max-width: 100px;
+}
+
 
 .cover-container .cover-info{
   text-align: left;
   padding: 1rem;
+  font-size: 1.2rem;
 }
 
 .cover-description{
@@ -1944,4 +1960,211 @@ details > summary {
   font-size: 1.6rem;
   margin: 1rem;
   margin-top: 2rem;
+}
+
+.btn-cover{
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  z-index: 99999999999999999999999999999999999999999999;
+  width: 100%;
+  border-radius: 5px;
+  height: 5rem;
+  color: #333;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.cover-info .price{
+  font-size: 2rem;
+}
+
+.cover-info-date{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.cover-type{
+  color: #fdbd00;
+  font-size: 1.4rem;
+}
+
+.cover-payment{
+  display: flex;
+  align-items: flex-end;
+  margin-top: 2rem;
+  height: 100%;
+  gap: 5rem;
+}
+
+.cover-payment > div{
+  display: flex;
+}
+
+
+.cover-payment > div button{
+  width: 50%;
+  height: 100%;
+  border: none;
+  font-size: 2rem;
+}
+
+
+.cover-payment > div input{
+  /* height: 100%; */
+  width: 50%;
+  border: none;
+  outline: none;
+  padding: .5rem;
+  text-align: center;
+}
+
+
+.balance-screen{
+  background-color: #fff;
+}
+
+.balance-screen .cartera{
+  background-color: #333;
+  color: #f2f2f2;
+  padding:1rem 2rem;
+}
+
+.balance-screen .total-pay{
+  box-shadow: 0 4px 16px rgb(0, 0, 0, .1);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+}
+
+.balance-screen .info{
+  padding: 1rem 2rem;
+}
+
+.balance-screen .info > p{
+  margin: 2rem 0;
+}
+
+
+
+.balance-screen .info .box{
+  padding: 1rem;
+  box-shadow: 0 4px 16px rgb(0, 0, 0, .2);
+  border-radius: .5rem;
+  margin-top: 2rem;
+}
+
+
+
+.balance-screen .info .box h3{
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.balance-screen .info .box p{
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.not-money{
+  text-align: center;
+  font-size: 2rem;
+  color: red;
+  opacity: .7;
+}
+
+.not-money-p{
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.confirm-modal{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999999999999;
+  background-color: rgba(0, 0, 0, .2);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-screen{
+  background-color: #fff;
+  min-width: 90%;
+  min-height: 60%;
+}
+
+.confirm-header{
+  min-height: 4rem;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confirm-header > div{
+  font-size: 3rem;
+  color: transparent;
+}
+
+
+.confirm-header button{
+  background-color: transparent;
+  border: none;
+  font-size: 3rem;
+  color: #333;
+}
+
+.confirm-header h4{
+  font-weight: 500;
+  color: #333;
+  font-size: 1.6rem;
+}
+
+.confirm-pant{
+  padding: 1rem 2rem;
+}
+
+.confirm-pant h4{
+  color: #333;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.confirm-pant .box{
+  width: 100%;
+  height: 4rem;
+  box-shadow: 0 4px 16px rgb(0, 0, 0, .1);
+  border-radius: .3rem;
+  margin-top: 1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.confirm-buttons{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 2rem;
+}
+
+
+.confirm-buttons button{
+  height: 7rem;
+  border: none;
+  font-size: 2rem;
+  background-color: transparent;
+}
+
+.confirm-confirm{
+  width: 90%;
+  margin: 0 1.8rem;
+  height: 4rem;
+  border: none;
+  background-color: #fdbd00;
+  border-radius: .5rem;
 }

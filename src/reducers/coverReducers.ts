@@ -18,12 +18,14 @@ export const coverListManyReducer = (state = { loading: true }, action: any) => 
   };
   export const coverInsertReducer = (state = { loading: true }, action: any) => {
     switch (action.type) {
-      case 'COVER_LIST_MANY_REQUEST':
+      case 'COVER_INSERT_REQUEST':
         return { loading: true };
-      case 'COVER_LIST_MANY_SUCCESS':
+      case 'COVER_INSERT_SUCCESS':
         return { loading: false, success: true };
-      case 'COVER_LIST_MANY_FAIL':
+      case 'COVER_INSERT_FAIL':
         return { loading: false, error: action.payload };
+        case 'COVER_INSERT_RESET':
+        return { };
       default:
         return state;
     }
