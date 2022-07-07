@@ -25,6 +25,8 @@ export const getManyCovers = (id: string | undefined) => async (dispatch: any) =
     try {
       const { data } = await axios.post(`${URL}/covers/insert`, {id, amount ,user,state,price,gender,name, photo});
       dispatch({ type: 'COVER_INSERT_SUCCESS', payload: data });
+      console.log(data)
+      localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (err) {
       dispatch({ type: 'COVER_INSERT_FAIL' });
     }

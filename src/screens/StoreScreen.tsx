@@ -52,6 +52,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
   const { userInfo } = userSignin;
 
   const [balance, setBalance] = useState(false);
+  const [waitList, setWaitList] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const cart = useSelector((state: any) => state.cart);
   const { cartItems: itemsCart } = cart;
@@ -211,7 +212,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     setCommentText("");
   };
 
-  const [coverSelected, setCoverSelected] = useState({ _id: "3434", price: 10 });
+  const [coverSelected, setCoverSelected] = useState({ _id: "3434", price: 10, limit: 0, name: "", description: "", hour: "", date: "", type: "" });
 
 
   const insertPeoplesToCover = () => {
@@ -224,10 +225,10 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
   useEffect(() => {
     dispatch(getOneStore(id) as any);
     dispatch(getManyCovers(id) as any);
-    
 
-    if(successInsert){
-    dispatch({type: 'COVER_INSERT_RESET'})
+
+    if (successInsert) {
+      dispatch({ type: 'COVER_INSERT_RESET' })
       alert('Pago confirmado y cover creado');
       navigate('/')
     }
@@ -253,7 +254,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
           <i className="bx bx-left-arrow-alt"></i>{" "}
         </button>
       )}
- {balance && (
+      {balance && (
         <button className="back-btn" onClick={() => setBalance(false)}>
           <i className="bx bx-left-arrow-alt"></i>{" "}
         </button>
@@ -434,11 +435,15 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                     <button key={cover._id} className="cover-screen-item" onClick={() => setCoverSelected(cover)}>
                       <img src="/img/coverimg.jpg" alt="" />
                       <div className="cover-info">
-                        <h3>{cover.name}</h3>
-                        <p className="cover-description">{cover.description}</p>
+                        <div>
+
+                          <h3>{cover.name}</h3>
+                          <p className="cover-description">{cover.description}</p>
+                        </div>
+
                         <div className="cover-info-date">
                           <div>
-                          <p>Cupos: {cover.limit}</p>
+                            <p>Cupos: {cover.limit}</p>
                             <p>Hora: {cover.hour}</p>
                             <p>Fecha: {cover.date.substring(10, 0)}</p>
                           </div>
@@ -449,19 +454,32 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                         </div>
 
                         <div className="cover-payment">
-                        <p className="price">{DivisaFormater(cover.price)}</p>
-                        <div>
-                          <button onClick={() => {setPeople(people-1)}}>-</button>
-                          <input type="text" value={coverSelected._id == cover._id? people : 0} />
-                          <button onClick={() => {setPeople(people+1)}}>+</button>
-                        </div>
+                          <p className="price">{DivisaFormater(cover.price)}</p>
+                          {cover.limit > 0 ? (
+                            <div>
+                              <button onClick={() => { setPeople(people - 1) }}>-</button>
+                              <input type="text" value={coverSelected._id == cover._id ? people : 0} />
+                              <button onClick={() => { setPeople(people + 1) }}>+</button>
+                            </div>
+                          ) : (
+                            <div>
+                              <button className="fila-btn" onClick={() => setWaitList(true)}>
+                                Hacer fila
+                              </button>
+
+                              <div className="sold-out">
+                                SOLD OUT
+                              </div>
+                            </div>
+                          )}
+
                         </div>
                       </div>
 
                     </button>
                   ))}
               </div>
-              {people > 0 && (<button className="btn-primary btn-cover" onClick={balance == true? insertPeoplesToCover : () => setBalance(true)}>Pagar</button>)}
+              {people > 0 && (<button className="btn-primary btn-cover" onClick={balance == true ? insertPeoplesToCover : () => setBalance(true)}>Pagar</button>)}
 
             </div>
 
@@ -933,24 +951,24 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
 
           <div className="info">
 
-          <p>Detalles de compra</p>
+            <p>Detalles de compra</p>
 
-          <div className="box">
-            <h3>{store.name}</h3>
-            <p>{people} Covers ---------------------------------------- {DivisaFormater(coverSelected.price * people)}</p>
-          </div>
+            <div className="box">
+              <h3>{store.name}</h3>
+              <p>{people} Covers ---------------------------------------- {DivisaFormater(coverSelected.price * people)}</p>
+            </div>
           </div>
 
-          {userInfo.balance < coverSelected.price * people? (
-          <div>
+          {userInfo.balance < coverSelected.price * people ? (
+            <div>
 
-          <h2 className="not-money">No tienes suficiente dinero</h2>
-          <p className="not-money-p">Te sugerimos recargar tu cuenta</p>
-          </div>
-          
+              <h2 className="not-money">No tienes suficiente dinero</h2>
+              <p className="not-money-p">Te sugerimos recargar tu cuenta</p>
+            </div>
+
           ) : <button className="btn-primary btn-cover" onClick={() => setConfirm(true)}>Pagar</button>}
-          
-          
+
+
         </div>
       )}
 
@@ -998,26 +1016,125 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         </div>
       )}
 
-      
-      
+      {store && waitList && (
+
+        <div className="min-he menu-screen">
+          <button className="back-btn" onClick={() => setOpenCover(false)}>
+            Atras{" "}
+          </button>
+
+          <div>
+            <div className="">
+              <div className="store-info-header">
+                <div className="info-header-name">
+                  <p>Lista de espera</p>
+                  <h2>{store.name}</h2>
+                  <div className="star">
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star"></i>
+                    <i className="bx bxs-star-half"></i>
+                  </div>
+                  <h4>{store.type}</h4>
+                </div>
+                <div>
+                  <a href={`tel:${store.mobile}`}>
+                    <span>
+                      <i className="bx bxs-phone"></i>
+                    </span>{" "}
+                  </a>
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=57${store.mobile}`}
+                  >
+                    <i className="bx bxl-whatsapp"></i>
+                  </a>
+                  <a href="https://www.google.com/maps/place/Jumbo+Calle+80/@4.6909253,-74.0839133,19.62z/data=!4m5!3m4!1s0x8e3f9b2177059375:0x34d1a90a38fbc99!8m2!3d4.6909593!4d-74.0841774">
+                    <i className="bx bxs-location-plus"></i>{" "}
+                  </a>
+
+                </div>
+              </div>
+
+              <div>
+                <p>Tu turno es: </p>
+
+                <button key={coverSelected._id} className="cover-screen-item" onClick={() => setCoverSelected(coverSelected)}>
+                      <img src="/img/coverimg.jpg" alt="" />
+                      <div className="cover-info">
+                        <div>
+
+                          <h3>{coverSelected.name}</h3>
+                          <p className="cover-description">{coverSelected.description}</p>
+                        </div>
+
+                        <div className="cover-info-date">
+                          <div>
+                            <p>Cupos: {coverSelected.limit}</p>
+                            <p>Hora: {coverSelected.hour}</p>
+                            <p>Fecha: {coverSelected.date.substring(10, 0)}</p>
+                          </div>
+                          <div>
+                            <h2 className="cover-type">{coverSelected.type}</h2>
+                          </div>
+
+                        </div>
+
+                        <div className="cover-payment">
+                          <p className="price">{DivisaFormater(coverSelected.price)}</p>
+                          {coverSelected?.limit > 0 ? (
+                            <div>
+                              <button onClick={() => { setPeople(people - 1) }}>-</button>
+                              <input type="text" value={coverSelected._id == coverSelected._id ? people : 0} />
+                              <button onClick={() => { setPeople(people + 1) }}>+</button>
+                            </div>
+                          ) : (
+                            <div>
+                              <button className="fila-btn">
+                                Hacer fila
+                              </button>
+
+                              <div className="sold-out">
+                                SOLD OUT
+                              </div>
+                            </div>
+                          )}
+
+                        </div>
+                      </div>
+
+                    </button>
+
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      )}
+
+
+
+
       {confirm && (
 
-      <div className="confirm-modal">
-        <div className="confirm-screen">
+        <div className="confirm-modal">
+          <div className="confirm-screen">
             <div className="confirm-header">
-            <button onClick={() => setBalance(false)}>
-          <i className="bx bx-left-arrow-alt"></i>{" "}
-        </button>
+              <button onClick={() => setBalance(false)}>
+                <i className="bx bx-left-arrow-alt"></i>{" "}
+              </button>
 
-        <h4>Confirmacion</h4>
-        <div>
-        <i className="bx bx-left-arrow-alt"></i>
-        </div>
+              <h4>Confirmacion</h4>
+              <div>
+                <i className="bx bx-left-arrow-alt"></i>
+              </div>
             </div>
             <div className="confirm-pant">
               <h4>Introduzca su pin</h4>
               <div className="box">
-                  {pin}
+                {pin}
               </div>
             </div>
 
@@ -1040,8 +1157,8 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
             <button className="confirm-confirm" onClick={insertPeoplesToCover}>
               Confirmar
             </button>
-        </div> 
-      </div>
+          </div>
+        </div>
       )}
 
       <BottonMenu />

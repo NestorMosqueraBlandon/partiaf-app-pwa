@@ -1913,12 +1913,32 @@ details > summary {
   overflow: scroll;
 }
 
+.cover-screen-item{
+  padding: 0;
+  border: none;
+  /* min-width: 150px; */
+  width: 100%;
+  height: 170px;
+  position: relative;
+
+  background:  linear-gradient(0deg, rgba(253,189,0,1) 0%, rgba(0,0,0,1) 0%, rgba(102,100,100,1) 70%, rgb(151, 151, 151) 100%);
+
+  display: flex;
+  /* align-items: center; */
+  padding: 1rem;
+  color: #fff;
+  overflow: hidden;
+  gap: 2rem;
+}
+
+
 .cover-container .cover-screen-item{
   padding: 0;
   border: none;
   /* min-width: 150px; */
   width: 100%;
   height: 170px;
+  position: relative;
 
   background:  linear-gradient(0deg, rgba(253,189,0,1) 0%, rgba(0,0,0,1) 0%, rgba(102,100,100,1) 70%, rgb(151, 151, 151) 100%);
 
@@ -1928,6 +1948,16 @@ details > summary {
   color: #fff;
 }
 
+
+.cover-screen-item img{
+  border-radius: 0rem;
+  height: 100%;
+  width: 30%;
+  object-fit: cover;
+  border-radius: .3rem;
+}
+
+
 .cover-container .cover-screen-item img{
   border-radius: 0rem;
   height: 100%;
@@ -1936,8 +1966,18 @@ details > summary {
   border-radius: .3rem;
 }
 
+.cover-screen-item{
+  text-align: left;
+}
+
 .cover-container .cover-screen-item{
   text-align: left;
+}
+
+
+.cover-screen-item .cover-info p{
+  
+  max-width: 500px;
 }
 
 .cover-container .cover-screen-item .cover-info p{
@@ -1950,6 +1990,10 @@ details > summary {
   text-align: left;
   padding: 1rem;
   font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* gap: 2rem; */
 }
 
 .cover-description{
@@ -2167,4 +2211,21 @@ details > summary {
   border: none;
   background-color: #fdbd00;
   border-radius: .5rem;
+}
+
+.fila-btn{
+  width: 80px !important;
+  font-size: 1.2rem !important;
+  background-color: #fdbd00;
+}
+
+.sold-out{
+  width: 100px;
+  height: 20px;
+  background-color: red;
+  position: absolute;
+  text-align: center;
+  transform: rotate(45deg);
+  top: 20px;
+  right: -2rem;
 }
