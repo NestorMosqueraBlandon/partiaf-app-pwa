@@ -21,7 +21,7 @@ export const coverListManyReducer = (state = { loading: true }, action: any) => 
       case 'COVER_INSERT_REQUEST':
         return { loading: true };
       case 'COVER_INSERT_SUCCESS':
-        return { loading: false, success: true , userInfo: action.payload};
+        return { loading: false, success: true};
       case 'COVER_INSERT_FAIL':
         return { loading: false, error: action.payload };
         case 'COVER_INSERT_RESET':

@@ -143,6 +143,28 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
     }
   };
 
+  const setPeopleHandler =async (type: string, id: string) => {
+    
+    if(type == "+"){
+      console.log("entro a plus")
+      if(coverSelected._id != id){
+        console.log("Entroa plus id")
+        setPeople(1);
+      }else{
+        setPeople(people + 1);
+      }
+    }else{
+      if(coverSelected._id != id){
+        setPeople(0);
+      }else{
+        if(people > 0){
+          setPeople(people - 1);
+        }
+      }
+      
+    }
+  }
+
   const [pin, setPin] = useState("");
 
   let totalPrice =
@@ -321,7 +343,6 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                   <a href="https://www.google.com/maps/place/Jumbo+Calle+80/@4.6909253,-74.0839133,19.62z/data=!4m5!3m4!1s0x8e3f9b2177059375:0x34d1a90a38fbc99!8m2!3d4.6909593!4d-74.0841774">
                     <i className="bx bxs-location-plus"></i>{" "}
                   </a>
-
                 </div>
               </div>
 
@@ -330,13 +351,15 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                   <img src="/img/covers-disco.svg" alt="" />
                   Covers
                 </button>
-                <button onClick={() => setOpenBooking(true)}>
+                <button onClick={() => setOpenBooking(true)} className="btn-lock" disabled>
+                  <i className='bx bxs-lock' ></i>
                   <img src="/img/reserva-disco.svg" alt="" />
-                  Reservas
+                  <p>Reservas</p>
                 </button>
-                <button onClick={() => setOpenMenu(true)}>
+                <button onClick={() => setOpenMenu(true)} className="btn-lock lock-two" disabled>
+                <i className='bx bxs-lock' ></i>
                   <img src="/img/menu-disco.svg" alt="" />
-                  Menu
+                  <p>Menu</p>
                 </button>
               </div>
 
@@ -457,9 +480,9 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                           <p className="price">{DivisaFormater(cover.price)}</p>
                           {cover.limit > 0 ? (
                             <div>
-                              <button onClick={() => { setPeople(people - 1) }}>-</button>
+                              <button onClick={() => setPeopleHandler("-", cover._id) }>-</button>
                               <input type="text" value={coverSelected._id == cover._id ? people : 0} />
-                              <button onClick={() => { setPeople(people + 1) }}>+</button>
+                              <button onClick={() => {  setPeopleHandler('+', cover._id) }}>+</button>
                             </div>
                           ) : (
                             <div>
@@ -1056,8 +1079,11 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                 </div>
               </div>
 
-              <div>
+              <div className="file-covers">
+                <header>
                 <p>Tu turno es: </p>
+                  <h3>1</h3>
+                </header>
 
                 <button key={coverSelected._id} className="cover-screen-item" onClick={() => setCoverSelected(coverSelected)}>
                       <img src="/img/coverimg.jpg" alt="" />
@@ -1084,14 +1110,14 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                           <p className="price">{DivisaFormater(coverSelected.price)}</p>
                           {coverSelected?.limit > 0 ? (
                             <div>
-                              <button onClick={() => { setPeople(people - 1) }}>-</button>
+                              <button onClick={() =>  setPeopleHandler }>-</button>
                               <input type="text" value={coverSelected._id == coverSelected._id ? people : 0} />
                               <button onClick={() => { setPeople(people + 1) }}>+</button>
                             </div>
                           ) : (
                             <div>
                               <button className="fila-btn">
-                                Hacer fila
+                                Cancelar
                               </button>
 
                               <div className="sold-out">
@@ -1104,6 +1130,12 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
                       </div>
 
                     </button>
+
+              
+                            <div className="espera-people">
+                              <h3>0</h3>
+                              <p>Personas en espera</p>
+                            </div>
 
               </div>
             </div>

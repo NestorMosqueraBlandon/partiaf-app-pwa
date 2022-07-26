@@ -559,7 +559,7 @@ details > summary {
 
 .profile-info {
   width: 100%;
-  padding-top: 10rem;
+  padding-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1982,16 +1982,16 @@ details > summary {
 
 .cover-container .cover-screen-item .cover-info p{
   
-  max-width: 100px;
+  /* max-width: 100px; */
 }
 
 
 .cover-container .cover-info{
   text-align: left;
-  padding: 1rem;
+  /* padding: 1rem; */
   font-size: 1.2rem;
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
   flex-direction: column;
   /* gap: 2rem; */
 }
@@ -2038,13 +2038,19 @@ details > summary {
 .cover-payment{
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   margin-top: 2rem;
   height: 100%;
   gap: 5rem;
 }
 
+.cover-payment .price{
+  font-size: 2rem;
+  font-weight: 600;
+}
 .cover-payment > div{
   display: flex;
+  height: 3.5rem;
 }
 
 
@@ -2053,6 +2059,8 @@ details > summary {
   height: 100%;
   border: none;
   font-size: 2rem;
+  background-color: rgb(255, 255, 255, .1);
+  color: #fdbd00;
 }
 
 
@@ -2063,6 +2071,8 @@ details > summary {
   outline: none;
   padding: .5rem;
   text-align: center;
+  background-color: rgb(0, 0, 0, .1);
+  color: #FFF;
 }
 
 
@@ -2216,16 +2226,87 @@ details > summary {
 .fila-btn{
   width: 80px !important;
   font-size: 1.2rem !important;
-  background-color: #fdbd00;
+  background-color: #fdbd00 !important;
+  color: #333 !important;
+  font-size: 1.4rem !important;
 }
 
 .sold-out{
   width: 100px;
-  height: 20px;
+  height: 15px;
   background-color: red;
   position: absolute;
   text-align: center;
   transform: rotate(45deg);
+  font-size: 1.4rem;
   top: 20px;
   right: -2rem;
+  font-weight: 700;
+}
+
+.file-covers{
+  padding: 2rem;
+}
+
+.file-covers > header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+}
+
+.file-covers > header p{
+  font-size: 1.8rem;
+}
+
+.file-covers .cover-screen-item .cover-info > div > h3{
+  font-size: 1.2rem;
+}
+
+
+.file-covers .cover-screen-item .cover-info > div > p{
+  font-size: 1.1rem;
+}
+
+.espera-people{
+
+  background-color: #fdbd00;
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.espera-people h3{
+  font-size: 3rem;
+  color: #333;
+}
+
+.espera-people p{
+  color: #333;
+}
+
+.btn-lock{
+  position: relative;
+}
+
+.btn-lock img{
+  opacity: .5;
+}
+
+.btn-lock p{
+  opacity: .5;
+}
+
+.btn-lock i{
+  position: absolute;
+  top: -10px;
+  left: 2.5rem;
+  font-size: 2rem;
+  z-index: 99;
+  color: #333;
+}
+
+.lock-two i{
+  left: 2rem;
 }
