@@ -16,7 +16,7 @@ const SharedScreen = () => {
       <Header />
       <Webcam ref={webRef} />
 
-      <BottonMenu />
+      {/* <BottonMenu /> */}
     </div>
   );
 };

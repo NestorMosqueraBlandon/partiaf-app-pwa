@@ -43,7 +43,7 @@ export const CreditsScreen: React.FunctionComponent = (props) => {
             </div>
           </div>
         </div>
-        <BottonMenu />
+        {/* <BottonMenu /> */}
       </div>
     </>
   );

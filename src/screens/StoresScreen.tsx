@@ -101,7 +101,7 @@ export const StoresScreen: React.FunctionComponent<IStoreScreenProps> = (
         </div>
       </div>
 
-      <BottonMenu />
+      {/* <BottonMenu /> */}
     </>
   );
 };

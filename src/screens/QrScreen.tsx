@@ -27,12 +27,12 @@ export const QrScreen: React.FunctionComponent = (props) => {
             <h3>
               {userInfo.name} {userInfo.lastname}
             </h3>
-            <Link to="verify-user">Verificar usuario</Link>
+            <Link to="verify-user">Configurar usuario</Link>
           </div>
 
           <QRCode value="user" />
 
-          <BottonMenu />
+          {/* <BottonMenu /> */}
         </div>
       </div>
     </>

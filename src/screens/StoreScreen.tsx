@@ -1193,7 +1193,7 @@ export const StoreScreen: React.FunctionComponent = (props: any) => {
         </div>
       )}
 
-      <BottonMenu />
+      {/* <BottonMenu /> */}
     </div>
   );
 };

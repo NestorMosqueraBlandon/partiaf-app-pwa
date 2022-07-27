@@ -85,7 +85,7 @@ const ProfileScreen = () => {
         </button>
       </div>
 
-      <BottonMenu />
+      // <BottonMenu />
     </div>
   );
 };

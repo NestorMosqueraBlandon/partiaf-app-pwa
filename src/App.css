@@ -153,6 +153,8 @@
 
 .header span {
   padding-right: 1rem;
+  display: flex;
+  align-items: center;
 }
 .header img {
   max-width: 40%;
@@ -555,6 +557,22 @@ details > summary {
   object-fit: cover;
   border-radius: 5rem;
   border: 2px solid #fdbd00;
+}
+
+.header-user-image{
+  height: 35px;
+  width: 35px;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 50rem;
+  border: 2px solid #fdbd00;
+
+}
+
+.header-user-image img{
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 0 !important;
 }
 
 .profile-info {
